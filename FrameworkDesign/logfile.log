@@ -1,0 +1,18 @@
+2025-01-16 22:43:21,480 :INFO : test_editProfile :jaya
+2025-01-16 22:43:21,481 :INFO : test_editProfile :Sree
+ 2025-01-16 22:43:21,488 : DEBUG : test_logging : debug 
+ 2025-01-16 22:43:21,488 : INFO : test_logging : Information of the testcase 
+ 2025-01-16 22:43:21,488 : ERROR : test_logging : Error 
+ 2025-01-16 22:43:21,489 : CRITICAL : test_logging : critical message 
+2025-01-17 20:42:45,169 :INFO : test_editProfile :jaya
+2025-01-17 20:42:45,171 :INFO : test_editProfile :Sree
+ 2025-01-17 20:42:45,178 : DEBUG : test_logging : debug 
+ 2025-01-17 20:42:45,178 : INFO : test_logging : Information of the testcase 
+ 2025-01-17 20:42:45,178 : ERROR : test_logging : Error 
+ 2025-01-17 20:42:45,178 : CRITICAL : test_logging : critical message 
+2025-01-17 20:43:39,434 :INFO : test_editProfile :jaya
+2025-01-17 20:43:39,435 :INFO : test_editProfile :Sree
+ 2025-01-17 20:43:39,439 : DEBUG : test_logging : debug 
+ 2025-01-17 20:43:39,439 : INFO : test_logging : Information of the testcase 
+ 2025-01-17 20:43:39,439 : ERROR : test_logging : Error 
+ 2025-01-17 20:43:39,439 : CRITICAL : test_logging : critical message 

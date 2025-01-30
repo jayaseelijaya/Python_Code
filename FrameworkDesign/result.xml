@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="1" skipped="1" tests="14" time="0.338" timestamp="2025-01-17T20:43:39.104568" hostname="INLEN8520029895"><testcase classname="test_demo1" name="test_one" time="0.002" /><testcase classname="test_demo1" name="test_two" time="0.001" /><testcase classname="test_demo1" name="test_greet" time="0.001"><skipped type="pytest.skip" message="unconditional skip">C:\Users\JAYASE\PycharmProjects\FrameworkDesign\test_demo1.py:11: unconditional skip</skipped></testcase><testcase classname="test_demo2" name="test_four" time="0.001" /><testcase classname="test_demo2" name="test_secondgreet" time="0.002" /><testcase classname="test_fixturesdemo.Testfixturedemo" name="test_three" time="0.002"><failure message="AssertionError: test failed&#10;assert 'hi jaya' == 'hi'&#10;  - hi&#10;  + hi jaya">setup = &lt;test_fixturesdemo.Testfixturedemo object at 0x00000211A092E550&gt;
+
+    def test_three(setup):
+        msg = "hi jaya"
+&gt;       assert msg == "hi","test failed"
+E       AssertionError: test failed
+E       assert 'hi jaya' == 'hi'
+E         - hi
+E         + hi jaya
+
+test_fixturesdemo.py:9: AssertionError</failure></testcase><testcase classname="test_fixturesdemo.Testfixturedemo" name="test_four" time="0.002" /><testcase classname="test_fixturesdemo.Testfixturedemo" name="test_secondgreet" time="0.002" /><testcase classname="test_fixturesdemoparam.Testparamdemo" name="test_parameter" time="0.002" /><testcase classname="test_fixturesdemoparam.TestMutiparamdemo" name="test_parameter[multidataload0]" time="0.002" /><testcase classname="test_fixturesdemoparam.TestMutiparamdemo" name="test_parameter[multidataload1]" time="0.002" /><testcase classname="test_fixturesdemoparam.TestMutiparamdemo" name="test_parameter[multidataload2]" time="0.002" /><testcase classname="test_getlog.TestExample2" name="test_editProfile" time="0.022" /><testcase classname="test_logging" name="test_logging" time="0.001" /></testsuite></testsuites>
