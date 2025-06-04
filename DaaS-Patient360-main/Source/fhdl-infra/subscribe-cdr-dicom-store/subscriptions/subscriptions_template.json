@@ -1,0 +1,15 @@
+{ 
+	"resourceType": "Subscription",
+	"status": "requested",
+	"end": "2027-01-01T00:00:00Z",
+	"reason": "Subscription for [SUBSCRIPTIONS]",
+	"criteria": "[SUBSCRIPTIONS]",
+	"channel": {
+		"type": "rest-hook",
+		"endpoint": "https://cdrnotificationengine.cloud.pcftest.com/notifyCDR/CDRpushNotification",
+		"payload": "application/fhir+json",
+		"header": [
+			"Authorization: Basic [IAMAUTH]"								  
+		]
+	}
+}

@@ -1,0 +1,54 @@
+{
+        "resourceType": "ImagingStudy",
+        "id": "915c7d21-b318-4ef3-b56e-507d75e2621b",
+        "uid": "urn:oid:1.2.840.99999999.52554181.1568644917999",
+		"meta": {
+        "profile": [
+            "http://hl7.org/fhir/uv/ips/StructureDefinition/ImagingStudy-uv-ips"
+        ]
+    },
+	
+        "patient": {
+          "reference": "Patient/c0caf3d0-1957-11ed-8230-dff9eef9924b",
+		  "display": "Dorothy Barnard"
+        },
+        "started": "1997-12-12T09:04:10-05:00",
+        "numberOfSeries": 1,
+        "numberOfInstances": 1,
+        "series": [
+          {
+            "uid": "urn:oid:1.2.840.99999999.1.16708659.1568644917999",
+            "extension": [
+                {
+                    "url": "Philips.Platform.SeriesManifestLocation",
+                    "valueUri": "https://s3-external-1.amazonaws.com/cf-s3-56e605ce-7225-4aad-8892-ed04e230e685//DOHJKA39E8KXUXTLG4QNTLGH0BSZ7MLEVTBG3GG2XQ/SeriesStorageManifest?AWSAccessKeyId=ASIA2LTMO342K3KE62X2&Expires=253402300800&x-amz-security-token=FwoGZXIvYXdzEHQaDGJlqJuuLFrpELnlPCLPA%2BiwNgiVFdRZlt8ZNpY1xZmUVH6bmCX%2FVNGT6G1viNKpz%2Fu4XrinVnuInCJjkiWe9RtNXnmaJfQeAbJSZHu1sD67gUBd6gEEyXu3LtaplKON7vsv7cvbgnTzwaM7vtXNiDAXnBEs7DNmnzbyr6QXL8J7DaZQen4Zp1%2FdAhERRq4ihyW8wqHMZrdwgW8Lb7wNpM7HyQ3LHbjEUF1byFEHQcaX1gFAUoJ2lQFK%2B3rfvukPX9hdqHK8vasKs3btebLbOKETbJxyDHW44hLMk%2BkqHn0xc3rq9cob0G5hMzKU7pO71j3gd0XxqolgO03EgW6tpPHsOwzMqdmsDEuu49mdaUKEW7aTfk8p%2Fgcur%2FhCdW8CdHcafR9XHUWZkJzlc6a3m5zJdsyNZJ3ZTB8BDHqjOH0jWGwNSp7vNkSL%2BL2izLHZxDQB5VguzzOamZbC3mslVBHImvY9DTkHBWxtBp2llawTZLnCCzO57SVUuyLQV06A00GiuSx%2FBWwGkiT2ecCL1co8Mfd7yO9vnX3Q2%2F5aL1xObuYdvncUwS4lpuhncRukgYY5T06PF5tU5NCpxaDAl5PlzcMq19wnZ7E9fFG%2FiyFV6Ag7ync6WGfDDGDMi9Eo7oLslwYyKUis5baGKW2WMTf8rD%2BzGEHMupA3bsgSJj9IKUFkbKSd0JA3mdPAiCqn&Signature=RaWHiZ7CzAj1%2FzCkn8Mk3GrSxfE%3D"
+                },
+                {
+                    "url": "Philips.Platform.SeriesAvailabiltyStatus",
+                    "valueCode": "Available"
+                }
+            ],
+            "number": 1,
+            "modality": {
+              "system": "http://dicom.nema.org/resources/ontology/DCM",
+              "code": "DX",
+              "display": "Digital Radiography"
+            },
+            "numberOfInstances": 1,
+            "bodySite": {
+              "system": "http://snomed.info/sct",
+              "code": "40983000",
+              "display": "Arm"
+            },
+            "started": "1997-12-12T09:04:10-05:00",
+            "instance": [
+              {
+                "uid": "urn:oid:1.2.840.99999999.1.1.76401763.1568644917999",
+                "number": 1,
+                "sopClass": "urn:oid:1.2.840.10008.5.1.4.1.1.1.1",
+                "title": "Image of arm"
+              }
+            ]
+          }
+        ]
+      }

@@ -1,0 +1,36 @@
+pipeline {
+    environment {
+        BUILD_TYPE='TESTSCAN'
+        CICD_ENV='true'
+        PLATFORM_NAME='SCE2E7'
+		SONAR_BRANCH="TEST_NIGHTLY"
+    }
+    options {
+        disableConcurrentBuilds()
+        timestamps()
+    }
+    agent { label 'hsdp_ci_bdp' }
+    stages {
+        stage ('TESTSCAN') {
+            steps {
+					checkout([$class: 'GitSCM', branches: [[name: "*/master"]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'CleanBeforeCheckout'],[$class: 'CloneOption', depth: 0, noTags: true, reference: '', shallow: false, timeout: 60]], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'TFS_CRED', refspec: '+refs/pull/*:refs/remotes/origin/pr/*', url: 'https://tfsapac04.ta.philips.com/tfs/DHPCollection/DHP/_git/${PLATFORM_NAME}']]])
+                    
+					sh "sonar-scanner -Dsonar.projectKey=${PLATFORM_NAME} \
+					-Dsonar.projectName=${PLATFORM_NAME} \
+					-Dsonar.branch=${SONAR_BRANCH} \
+					-Dsonar.projectVersion=1.0 \
+					-Dsonar.sources=Test/. \
+					-Dsonar.host.url=${HSDP_SONARQUBE_URL} \
+					-Dsonar.ws.timeout=300
+                 }
+        }
+	}
+    post {
+        failure{
+            emailext (mimeType: 'text/html', body: "'${env.PROJECT_DEFAULT_CONTENT}'", subject: "'${env.BUILD_TYPE} ${env.BUILD_NUM}' Failed", to: "${TA_EMAIL}")
+        }
+        success{
+            emailext (mimeType: 'text/html', body: "'${env.PROJECT_DEFAULT_CONTENT}'", subject: "'${env.BUILD_TYPE} ${env.BUILD_NUM}' Succeeded", to: "${TA_EMAIL}")
+        }
+    }
+}

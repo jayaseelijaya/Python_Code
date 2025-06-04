@@ -1,0 +1,67 @@
+{
+	"resourceType": "Bundle",
+	"type": "transaction",
+	"entry": [{
+			"fullUrl": "urn:uuid:5998070c-3235-11ec-8d3d-0242ac130003",
+			"resource": {
+				"resourceType": "Patient",
+				"name": [{
+					"given": ["PSKY H."]
+				}]
+			},
+			"request": {
+				"method": "POST",
+				"url": "Patient"
+			}
+		},
+		{
+			"fullUrl": "urn:uuid:a16613b8-3252-11ec-8d3d-0242ac130003",
+			"resource": {
+				"resourceType": "Observation",
+				"code": {
+					"coding": [{
+						"system": "http://snomed.info/sct",
+						"code": "365980008",
+						"display": "History of Tobacco use"
+					}]
+				},
+				"subject": {
+					"reference": "urn:uuid:5998070c-3235-11ec-8d3d-0242ac130003"
+				},
+				"status": "final"
+			},
+			"request": {
+				"method": "POST",
+				"url": "Observation"
+			}
+		},
+		{
+      "fullUrl": "urn:uuid:0979f5de-3260-11ec-8d3d-0242ac130003",
+      "resource": {
+        "resourceType": "Immunization",
+        "status": "completed",
+        "notGiven": false,
+        "vaccineCode": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/sid/cvx",
+              "code": "140",
+              "display": "Influenza, seasonal, injectable, preservative free"
+            }
+          ],
+          "text": "Influenza, seasonal, injectable, preservative free"
+        },
+        "patient": {
+          "reference": "urn:uuid:5998070c-3235-11ec-8d3d-0242ac130003"
+        },
+        "date": "2010-03-01T06:22:41-05:00",
+        "primarySource": true
+      },
+      "request": {
+        "method": "POST",
+        "url": "Immunization"
+      }
+    }
+	
+	]	
+}	

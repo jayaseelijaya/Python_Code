@@ -1,0 +1,300 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Resources": {
+    "EMRAddJobFlowPolicy": {
+      "Type": "AWS::IAM::ManagedPolicy",
+      "Properties": {
+        "PolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Sid": "VisualEditor0",
+              "Effect": "Allow",
+              "Action": [
+                "elasticmapreduce:DescribeReleaseLabel",
+                "elasticmapreduce:DescribeRepository",
+                "elasticmapreduce:DescribeSecurityConfiguration",
+                "elasticmapreduce:ListClusters"
+              ],
+              "Resource": "*",
+              "Condition": {
+                "StringEquals": {
+                  "aws:ResourceAccount": "525419040953"
+                }
+              }
+            },
+            {
+              "Sid": "VisualEditor1",
+              "Effect": "Allow",
+              "Action": [
+                "elasticmapreduce:AddJobFlowSteps",
+                "elasticmapreduce:ListBootstrapActions",
+                "elasticmapreduce:ListInstanceGroups",
+                "elasticmapreduce:ListInstances",
+                "elasticmapreduce:ListSteps",
+                "s3:DeleteObject",
+                "s3:GetObject",
+                "s3:GetObjectAcl",
+                "s3:PutObject",
+                "s3:PutObjectAcl"
+              ],
+              "Resource": [
+                "arn:aws:elasticmapreduce:*:525419040953:cluster/*",
+                "arn:aws:elasticmapreduce:*:525419040953:editor/*",
+                "arn:aws:elasticmapreduce:*:525419040953:notebook-execution/*",
+                "arn:aws:elasticmapreduce:*:525419040953:studio/*",
+                "arn:aws:s3:::*/*"
+              ]
+            },
+            {
+              "Sid": "VisualEditor2",
+              "Effect": "Allow",
+              "Action": "s3:ListBucket",
+              "Resource": "arn:aws:s3:::*"
+            },
+            {
+              "Sid": "VisualEditor3",
+              "Effect": "Allow",
+              "Action": "elasticmapreduce:Describe*",
+              "Resource": [
+                "arn:aws:elasticmapreduce:*:525419040953:cluster/*",
+                "arn:aws:elasticmapreduce:*:525419040953:editor/*",
+                "arn:aws:elasticmapreduce:*:525419040953:notebook-execution/*",
+                "arn:aws:elasticmapreduce:*:525419040953:studio/*"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "ElasticMapReducePolicy": {
+      "Type": "AWS::IAM::ManagedPolicy",
+      "Properties": {
+        "PolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Sid": "VisualEditor0",
+              "Effect": "Allow",
+              "Action": [
+                "application-autoscaling:DeleteScalingPolicy",
+                "application-autoscaling:DeregisterScalableTarget",
+                "application-autoscaling:Describe*",
+                "application-autoscaling:PutScalingPolicy",
+                "application-autoscaling:RegisterScalableTarget",
+                "ec2:DescribeAccountAttributes",
+                "ec2:DescribeAvailabilityZones",
+                "ec2:DescribeDhcpOptions",
+                "ec2:DescribeInstanceStatus",
+                "ec2:DescribeInstances",
+                "ec2:DescribeKeyPairs",
+                "ec2:DescribeLaunchTemplates",
+                "ec2:DescribeNetworkAcls",
+                "ec2:DescribeNetworkInterfaces",
+                "ec2:DescribeRouteTables",
+                "ec2:DescribeSecurityGroups",
+                "ec2:DescribeSpotInstanceRequests",
+                "ec2:DescribeSubnets",
+                "ec2:DescribeTags",
+                "ec2:DescribeVolumeStatus",
+                "ec2:DescribeVolumes",
+                "ec2:DescribeVpcEndpoints",
+                "ec2:DescribeVpcs",
+                "s3:CreateBucket",
+                "s3:ListBucket"
+              ],
+              "Resource": "*"
+            },
+            {
+              "Sid": "VisualEditor1",
+              "Effect": "Allow",
+              "Action": [
+                "ec2:AuthorizeSecurityGroupEgress",
+                "ec2:AuthorizeSecurityGroupIngress",
+                "ec2:CreateFleet",
+                "ec2:CreateLaunchTemplate",
+                "ec2:CreateNetworkInterface",
+                "ec2:CreateSecurityGroup",
+                "ec2:CreateTags",
+                "ec2:DeleteLaunchTemplate",
+                "ec2:DeleteSecurityGroup",
+                "ec2:DeleteVolume",
+                "ec2:DescribeVpcAttribute",
+                "ec2:DetachNetworkInterface",
+                "ec2:DetachVolume",
+                "ec2:ModifyInstanceAttribute",
+                "ec2:RequestSpotInstances",
+                "ec2:RevokeSecurityGroupEgress",
+                "ec2:RunInstances",
+                "ec2:TerminateInstances"
+              ],
+              "Resource": [
+                "arn:aws:ec2:*:525419040953:fleet/*",
+                "arn:aws:ec2:*:525419040953:instance/*",
+                "arn:aws:ec2:*:525419040953:internet-gateway/*",
+                "arn:aws:ec2:*:525419040953:key-pair/*",
+                "arn:aws:ec2:*:525419040953:launch-template/*",
+                "arn:aws:ec2:*:525419040953:natgateway/*",
+                "arn:aws:ec2:*:525419040953:network-acl/*",
+                "arn:aws:ec2:*:525419040953:network-interface/*",
+                "arn:aws:ec2:*:525419040953:route-table/*",
+                "arn:aws:ec2:*:525419040953:security-group-rule/*",
+                "arn:aws:ec2:*:525419040953:security-group/*",
+                "arn:aws:ec2:*:525419040953:spot-instances-request/*",
+                "arn:aws:ec2:*:525419040953:subnet/*",
+                "arn:aws:ec2:*:525419040953:volume/*",
+                "arn:aws:ec2:*:525419040953:vpc-endpoint/*",
+                "arn:aws:ec2:*:525419040953:vpc-flow-log/*",
+                "arn:aws:ec2:*:525419040953:vpc/*",
+                "arn:aws:ec2:*:525419040953:vpn-gateway/*",
+                "arn:aws:ec2:*::image/*",
+                "arn:aws:ec2:*::snapshot/*"
+              ]
+            },
+            {
+              "Sid": "VisualEditor2",
+              "Effect": "Allow",
+              "Action": [
+                "iam:GetRole",
+                "iam:GetRolePolicy",
+                "iam:ListInstanceProfiles",
+                "iam:ListRolePolicies",
+                "iam:PassRole",
+                "s3:GetObject",
+                "s3:GetObjectAcl"
+              ],
+              "Resource": [
+                "arn:aws:iam::525419040953:instance-profile/*",
+                "arn:aws:iam::525419040953:role/*",
+                "arn:aws:s3:::*/*"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "EMREC2Role": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Service": [
+                  "ec2.amazonaws.com"
+                ]
+              },
+              "Action": [
+                "sts:AssumeRole"
+              ]
+            }
+          ]
+        },
+        "Path": "/",
+        "ManagedPolicyArns": [
+          {
+            "Ref": "EMRAddJobFlowPolicy"
+          }
+        ]
+      }
+    },
+    "EMREC2InstanceProfile": {
+      "Type": "AWS::IAM::InstanceProfile",
+      "Properties": {
+        "Path": "/",
+        "Roles": [
+          {
+            "Ref": "EMREC2Role"
+          }
+        ]
+      }
+    },
+    "EMRRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Service": [
+                  "elasticmapreduce.amazonaws.com"
+                ]
+              },
+              "Action": [
+                "sts:AssumeRole"
+              ]
+            }
+          ]
+        },
+        "Path": "/",
+        "ManagedPolicyArns": [
+          {
+            "Ref": "ElasticMapReducePolicy"
+          }
+        ]
+      }
+    },
+    "EMRAutoScalingRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Service": [
+                  "application-autoscaling.amazonaws.com",
+                  "elasticmapreduce.amazonaws.com"
+                ]
+              },
+              "Action": [
+                "sts:AssumeRole"
+              ]
+            }
+          ]
+        },
+        "Path": "/"
+      }
+    }
+  },
+  "Outputs": {
+    "EMRRole": {
+      "Description": "ARN of EMRRole",
+      "Value": {
+        "Ref": "EMRRole"
+      },
+      "Export": {
+        "Name": {
+          "Fn::Sub": "${AWS::StackName}-EMRRoleARN"
+        }
+      }
+    },
+    "EMRAutoScalingRole": {
+      "Description": "ARN of EMRAutoScalingRole",
+      "Value": {
+        "Ref": "EMRAutoScalingRole"
+      },
+      "Export": {
+        "Name": {
+          "Fn::Sub": "${AWS::StackName}-EMRAutoScalingRoleARN"
+        }
+      }
+    },
+    "EMREC2InstanceProfile": {
+      "Description": "ARN of EMREC2InstanceProfile",
+      "Value": {
+        "Ref": "EMREC2InstanceProfile"
+      },
+      "Export": {
+        "Name": {
+          "Fn::Sub": "${AWS::StackName}-EMREC2InstanceProfileARN"
+        }
+      }
+    }
+  }
+}

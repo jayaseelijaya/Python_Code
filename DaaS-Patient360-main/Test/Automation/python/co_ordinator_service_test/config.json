@@ -1,0 +1,7 @@
+{
+"request_topic" : "hospital-a.cardiology.syntaxscore",
+"result_topic"  : "hospital-a.cardiology.syntaxscore.result",
+"profileName"   : "SyntaxScore-I", 
+"orgId"         : "c366960f-2030-450e-b885-be7670c6a732", 
+"propositionId" : "c366960f-2030-450e-b885-be7670c6a732"
+}

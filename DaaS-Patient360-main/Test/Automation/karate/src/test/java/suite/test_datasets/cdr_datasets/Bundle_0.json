@@ -1,0 +1,39 @@
+{
+	"resourceType": "Bundle",
+	"type": "transaction",
+	"entry": [{
+			"fullUrl": "urn:uuid:c638eba2-31ad-11ec-8d3d-0242ac130003",
+			"resource": {
+				"resourceType": "Patient",
+				"name": [{
+					"given": ["Sham H."]
+				}]
+			},
+			"request": {
+				"method": "POST",
+				"url": "Patient"
+			}
+		},
+		{
+			"fullUrl": "urn:uuid:c638edb4-31ad-11ec-8d3d-0242ac130003",
+			"resource": {
+				"resourceType": "Observation",
+				"code": {
+					"coding": [{
+						"system": "http://snomed.info/sct",
+						"code": "365980008",
+						"display": "History of Tobacco use"
+					}]
+				},
+				"subject": {
+					"reference": "urn:uuid:c638eba2-31ad-11ec-8d3d-0242ac130003"
+				},
+				"status": "final"
+			},
+			"request": {
+				"method": "POST",
+				"url": "Observation"
+			}
+		}
+	]
+}

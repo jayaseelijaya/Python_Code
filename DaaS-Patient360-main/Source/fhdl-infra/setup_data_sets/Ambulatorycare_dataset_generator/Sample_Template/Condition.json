@@ -1,0 +1,65 @@
+{
+	"resourceType": "Condition",
+	"id": "f201",
+	"meta": {
+		"profile": [
+			"http://hl7.org/fhir/uv/ips/StructureDefinition/Condition-uv-ips"
+		]
+	},
+
+	"identifier": [{
+		"value": "12345"
+	}],
+	"clinicalStatus": "resolved",
+	"verificationStatus": "confirmed",
+	"category": [{
+		"coding": [{
+			"system": "http://snomed.info/sct",
+			"code": "55607006",
+			"display": "Problem"
+		}]
+	}],
+	"severity": {
+		"coding": [{
+			"system": "http://snomed.info/sct",
+			"code": "255604002",
+			"display": "Mild"
+		}]
+	},
+	"code": {
+		"coding": [{
+			"system": "http://snomed.info/sct",
+			"code": "386661006",
+			"display": "Fever"
+		}]
+	},
+	"bodySite": [{
+		"coding": [{
+			"system": "http://snomed.info/sct",
+			"code": "38266002",
+			"display": "Entire body as a whole"
+		}]
+	}],
+	"subject": {
+		"reference": "Patient/771eef80-3239-11ec-b626-c742c5b3978f",
+		"display": "Roel"
+	},
+	"context": {
+		"reference": "Encounter/49ff7638-387d-11ec-968f-ef2510adc6a1"
+	},
+	"onsetDateTime": "2013-04-02",
+	"abatementString": "around April 9, 2013",
+	"assertedDate": "2013-04-04",
+	"asserter": {
+		"reference": "Practitioner/82ab3e3c-af50-11ec-9bca-9b278b798a05"
+	},
+	"evidence": [{
+		"code": [{
+			"coding": [{
+				"system": "http://snomed.info/sct",
+				"code": "258710007",
+				"display": "degrees C"
+			}]
+		}]
+	}]
+}

@@ -1,0 +1,65 @@
+{
+  "selected_dominance": "Left",
+  "lesion_profile": [
+    {
+      "lesion": {
+        "number": 1,
+        "segments_list": [
+          {
+            "segment": {
+              "number": "3",
+              "name": "RCA distal",
+              "description": ""
+            }
+          }
+        ],
+        "totalocclusion": true,
+        "first_totalocclusion_segment_number": "3",
+        "is_totalocclusion_age_gt_3months": "No",
+        "blunt_stump": true,
+        "bridging": true,
+        "sidebranch_at_the_origin_of_occlusion": "No",
+        "severe_tortuosity": true,
+        "heavy_calcification": true,
+        "thrombus": true,
+        "comments": ""
+      }
+    },
+	{
+      "lesion": {
+        "number": 2,
+        "segments_list": [
+          {
+            "segment": {
+              "number": "8",
+              "name": "LAD apical",
+              "description": ""
+            }
+          }
+        ],
+        "totalocclusion": true,
+        "first_totalocclusion_segment_number": "8",
+        "is_totalocclusion_age_gt_3months": "Unknown",
+        "blunt_stump": true,
+        "bridging": true,
+        "sidebranch_at_the_origin_of_occlusion": "Yes_AllSideBranches_Lt_1_point_5_mm",
+        "severe_tortuosity": false,
+        "heavy_calcification": true,
+        "thrombus": true,
+        "comments": ""
+      }
+    }
+  ],
+  "diffusely_diseased_narrowed_segment": {
+    "present": true,
+    "diffusely_diseased_narrowed_segment_list": [
+      "1",
+      "2",
+      "3",
+	  "6",
+	  "7",
+	  "8"
+    ]
+  },
+  "score": 25.0
+}

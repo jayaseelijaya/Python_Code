@@ -1,0 +1,68 @@
+Admin	
+
+username:
+S&N HIL Manager	ic-test-snn-hil-manager@capgemini.com 
+
+pass:
+QdksdTR@554JP
+
+
+Non-Admin	
+
+S&N HIL Reviewer	ic-test-snn-hil-reviewer@capgemini.com 
+
+pass:
+QdksdTR@554JP
+
+For DUU:
+https://datauploadutility-staging.aetsamd-dev.com/#/signin/
+CLP Staging: 
+
+https://bridge-staging.faiplan-dev.com/signin
+For HIL: 
+
+SNN Staging: https://bridge-snn-staging.faiplan-dev.com/signin
+
+
+
+What will be inside the download log file?
+
+When exit button populating pop-up without doing any edit will it be populate pop-up?
+
+
+The info icon is not available for approved status cases in case history page.
+
+On the case history page, the info icon is not displayed for cases with an approved status.
+
+
+defect:
+
+The info button is not available for approved status case files, and color dots are not visible in the case history tab.
+
+Steps to reproduce:
+
+Login to s&n manager using below credentials
+
+
+Launch prime acl application from application page.
+
+click on case history tab in case management page.
+
+info icon and color dots are apperaing in all case files
+
+
+Expected result:
+info icon and color dots avilable for all case files in case history tab.
+
+Actual result:
+
+info icon and color dots not available for all case files in case history tab.
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,404 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Deploy infrastructure for DaaS
+
+Parameters:
+  FHDLDaaSIAMSTACK: 
+      Description: Name of an active CloudFormation stack that contains IAM roles, policies and instance profile.
+      Type: String
+      MinLength: 1
+      MaxLength: 255
+      Default: "FHDL-DaaS-IAM"
+  InstanceType:
+    Type: String
+    Default: t2.medium
+    Description: Enter instance size. Default is t3a.medium.
+  AMI:
+    Type: String
+    Default: ami-06489866022e12a14
+    Description: The Linux AMI to use.
+  RedshiftUsername:
+    Type: String
+    Description: Username for Redshift database.
+    Default: awsuser
+  RedshiftPaasword:
+    Type: String
+    Description: 8-64 characters long. Must contain at least 1 uppercase letter,1 lowercase letter and 1 number.Any character except /,", or @.
+  RedshiftDatabase:
+    Type: String
+    Description: Paasword for Redshift database.
+    Default: fhdl-daas-dev-db
+  EC2KeyName:
+    Type: String
+    Default: FHDLDaaS
+    Description: Paasword for Redshift database.
+  EC2FullAccessArn:
+    Type: String
+    Default: arn:aws:iam::aws:policy/AmazonEC2FullAccess
+    Description: Arn of EC2 Full Access.
+  S3FullAccessArn:
+    Type: String
+    Default: arn:aws:iam::aws:policy/AmazonS3FullAccess
+    Description: Arn of S3 Full Access.
+  GlueJobPath:
+    Type: String
+    Default: s3://fhdl-emr-mumbai/msk-script/MSK_load_to_S3_job.py
+    Description: Path of glue job.
+  GlueIAMArn:
+    Type: String
+    Default: arn:aws:iam::525419040953:role/FHDL_Glue
+    Description: IAM arn fir glue job.
+  
+Resources:
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsHostnames: true
+      Tags:
+      - Key: Name
+        Value: FHDL-DaaS
+
+  InternetGateway:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+      - Key: Name
+        Value: FHDL-DaaS-InternetGateway
+
+  AttachGateway:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId: !Ref VPC
+      InternetGatewayId: !Ref InternetGateway
+
+  PublicSubnet1:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref VPC
+      CidrBlock: 10.0.0.0/24
+      AvailabilityZone: !Select
+        - '0'
+        - !GetAZs ''
+      Tags:
+        - Key: Name
+          Value: FHDL-DaaS-PublicSubnet1
+          
+  PublicSubnet2:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref VPC
+      CidrBlock: 10.0.1.0/24
+      AvailabilityZone: !Select
+        - '1'
+        - !GetAZs ''
+      Tags:
+        - Key: Name
+          Value: FHDL-DaaS-PublicSubnet2
+      
+  PublicSubnet3:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref VPC
+      CidrBlock: 10.0.2.0/24
+      AvailabilityZone: !Select
+        - '2'
+        - !GetAZs ''
+      Tags:
+        - Key: Name
+          Value: FHDL-DaaS-PublicSubnet3
+
+  PublicRouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref VPC
+      Tags:
+        - Key: Name
+          Value: FHDL-DaaS-PublicRouteTable
+
+  PublicRoute:
+    Type: AWS::EC2::Route
+    Properties:
+      RouteTableId: !Ref PublicRouteTable
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref InternetGateway
+
+  PublicSubnetRouteTableAssociation1:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref PublicSubnet1
+      RouteTableId: !Ref PublicRouteTable
+      
+  PublicSubnetRouteTableAssociation2:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref PublicSubnet2
+      RouteTableId: !Ref PublicRouteTable
+
+  PublicSubnetRouteTableAssociation3:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref PublicSubnet3
+      RouteTableId: !Ref PublicRouteTable
+      
+  InstanceSecurityGroup: 
+    Type: AWS::EC2::SecurityGroup
+    Properties: 
+      GroupDescription: String
+      GroupName: FHDL-DaaS
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+      SecurityGroupEgress:
+        - IpProtocol: All
+          CidrIp: 0.0.0.0/0
+      VpcId: !Ref VPC
+  
+  EC2InstanceLinux:
+    Type: 'AWS::EC2::Instance'
+    Properties:
+      SubnetId: !Ref PublicSubnet1
+      AvailabilityZone: !Select
+        - '0'
+        - !GetAZs ''
+      ImageId: !Ref AMI
+      InstanceType:
+        Ref: InstanceType
+      KeyName: FHDLDaaS
+      SecurityGroupIds:
+        - Ref: InstanceSecurityGroup
+      BlockDeviceMappings:
+        - DeviceName: /dev/xvda
+          Ebs:
+            VolumeSize: 8
+      IamInstanceProfile: 
+        Fn::ImportValue:
+          !Sub '${FHDLDaaSIAMSTACK}-FHDLDaaSEC2InstanceProfileARN'
+      Tags:
+        - Key: Name
+          Value: FHDL-DaaS-EC2
+      UserData:
+        Fn::Base64: 
+          !Sub |
+            #!/bin/bash
+            sudo su
+            # Update instance
+            yum update -y
+            # Install java
+            yum install -y java-1.8.0-openjdk.x86_64
+            cd /home/ec2-user
+            # Install wget, in case it is not installed.
+            yum install -y wget
+            #install kafka
+            wget https://archive.apache.org/dist/kafka/2.6.2/kafka_2.12-2.6.2.tgz
+            #unzip folder
+            tar -xzf kafka_2.12-2.6.2.tgz
+            #remove zip file
+            rm -f kafka_2.12-2.6.2.tgz
+            #copy jar from s3 to libs
+            aws s3 cp s3://fhdl-emr-mumbai/msk_testing/python_library/aws-msk-iam-auth-1.1.4-all.jar ./
+            cp  /home/ec2-user/aws-msk-iam-auth-1.1.4-all.jar /home/ec2-user/kafka_2.12-2.6.2/libs/aws-msk-iam-auth-1.1.4-all.jar
+            cd kafka_2.12-2.6.2/config
+            #create client-config.properties file in config folder
+            cat <<EOF>> client-config.properties
+            security.protocol=SASL_SSL
+            sasl.mechanism=AWS_MSK_IAM
+            sasl.jaas.config=software.amazon.msk.auth.iam.IAMLoginModule required;
+            sasl.client.callback.handler.class=software.amazon.msk.auth.iam.IAMClientCallbackHandler
+            EOF
+            
+  MSKCluster:
+    Type: AWS::MSK::Cluster
+    Properties:
+      BrokerNodeGroupInfo:
+        ClientSubnets:
+          - Ref: PublicSubnet1
+          - Ref: PublicSubnet2
+          - Ref: PublicSubnet3
+        InstanceType: kafka.t3.small
+        SecurityGroups:
+          - Fn::GetAtt:
+              - InstanceSecurityGroup
+              - GroupId
+        StorageInfo:
+          EBSStorageInfo:
+            VolumeSize: 1
+      ClusterName: FHDL-DaaS-MSK
+      EncryptionInfo:
+        EncryptionInTransit:
+          ClientBroker: TLS
+          InCluster: true
+      EnhancedMonitoring: PER_TOPIC_PER_BROKER
+      KafkaVersion: 2.6.2
+      NumberOfBrokerNodes: 3
+      ClientAuthentication:
+        Sasl: 
+          Iam:
+            Enabled: true
+        Unauthenticated: 
+          Enabled: false
+      
+  RedshiftSubnetGroup:
+    Type: 'AWS::Redshift::ClusterSubnetGroup'
+    Properties:
+      Description: FHDL-DaaS-Redshift-Subnet-Group
+      SubnetIds:
+        - Ref: PublicSubnet1
+        - Ref: PublicSubnet2
+        - Ref: PublicSubnet3
+ 
+  Redshift:
+    Type: "AWS::Redshift::Cluster"
+    Properties:
+      ClusterIdentifier: "FHDL-DaaS-Redshift"
+      DBName: !Ref RedshiftDatabase
+      Port: 5439
+      MasterUsername: 
+        Ref: RedshiftUsername
+      MasterUserPassword: 
+        Ref: RedshiftPaasword
+      NodeType: "dc2.large"
+      ClusterType: "single-node"
+      PubliclyAccessible: true
+      ClusterSubnetGroupName: !Ref RedshiftSubnetGroup
+      VpcSecurityGroupIds: 
+        - Ref: InstanceSecurityGroup
+      
+  DynamoDBTableDev:
+    Type: 'AWS::DynamoDB::Table'
+    Properties:
+      TableName: FHDL_Daas_DynamoDB_Dev
+      AttributeDefinitions:
+        - AttributeName: patientId
+          AttributeType: S
+      KeySchema:
+        - AttributeName: patientId
+          KeyType: HASH
+      ProvisionedThroughput:
+        ReadCapacityUnits: '1'
+        WriteCapacityUnits: '1'
+        
+      
+  DynamoDBTableTest:
+    Type: 'AWS::DynamoDB::Table'
+    Properties:
+      TableName: FHDL_Daas_DynamoDB_Test
+      AttributeDefinitions:
+        - AttributeName: patientId
+          AttributeType: S
+      KeySchema:
+        - AttributeName: patientId
+          KeyType: HASH
+      ProvisionedThroughput:
+        ReadCapacityUnits: '1'
+        WriteCapacityUnits: '1'
+        
+  S3Bucket:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      BucketName: fhdl-daas-s3
+      AccessControl: Private
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true 
+        
+  S3BucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref S3Bucket
+      PolicyDocument:
+        Version: '2012-10-17'
+        Id: AWSLogDeliveryWrite20150319
+        Statement:
+          - Sid: AWSLogDeliveryWrite
+            Effect: Allow
+            Principal:
+              Service: delivery.logs.amazonaws.com
+            Action: s3:PutObject
+            Resource:
+              - arn:aws:s3:::fhdl-daas-s3/*/AWSLogs/525419040953/*
+              - arn:aws:s3:::fhdl-daas-s3/*/AWSLogs/525419040953/*
+            Condition:
+              StringEquals:
+                s3:x-amz-acl: bucket-owner-full-control
+                aws:SourceAccount: '525419040953'
+              ArnLike:
+                aws:SourceArn: arn:aws:logs:ap-south-1:525419040953:*
+          - Sid: AWSLogDeliveryAclCheck
+            Effect: Allow
+            Principal:
+              Service: delivery.logs.amazonaws.com
+            Action: s3:GetBucketAcl
+            Resource: arn:aws:s3:::fhdl-daas-s3
+            Condition:
+              StringEquals:
+                aws:SourceAccount: '525419040953'
+              ArnLike:
+                aws:SourceArn: arn:aws:logs:ap-south-1:525419040953:*
+                
+  GlueDatabase:
+    Type: AWS::Glue::Database
+    Properties:
+      CatalogId: "525419040953"
+      DatabaseInput:
+        Name: fhdl-daas-glue-database.
+        
+  GlueRegistry:
+    Type: AWS::Glue::Registry
+    Properties: 
+      Name: "FHDL-Daas-Glue-Registry"   
+
+  GlueSchema: 
+    Type: AWS::Glue::Schema
+    Properties: 
+      CheckpointVersion: 
+        IsLatest: true
+        VersionNumber: 1
+      Compatibility: BACKWARD
+      DataFormat: AVRO
+      Name: "fhdlglueschema"
+      Registry: 
+        Name: FHDL-Daas-Glue-Registry
+      SchemaDefinition: 
+        "{\"name\":\"MyClass\",\"type\":\"record\",\"fields\":[{\"name\":\"resourceType\",\"type\":\"string\"},{\"name\":\"id\",\"type\":\"string\"},{\"name\":\"name\",\"type\":{\"type\":\"array\",\"items\":{\"name\":\"name_record\",\"type\":\"record\",\"fields\":[{\"name\":\"given\",\"type\":{\"type\":\"array\",\"items\":\"string\"}}]}}},{\"name\":\"telecom\",\"type\":{\"type\":\"array\",\"items\":{\"name\":\"telecom_record\",\"type\":\"record\",\"fields\":[{\"name\":\"system\",\"type\":\"string\"},{\"name\":\"value\",\"type\":\"string\"},{\"name\":\"use\",\"type\":\"string\"}]}}},{\"name\":\"gender\",\"type\":\"string\"},{\"name\":\"birthDate\",\"type\":\"string\"},{\"name\":\"address\",\"type\":{\"type\":\"array\",\"items\":{\"name\":\"address_record\",\"type\":\"record\",\"fields\":[{\"name\":\"city\",\"type\":\"string\"},{\"name\":\"state\",\"type\":\"string\"},{\"name\":\"postalCode\",\"type\":\"string\"},{\"name\":\"country\",\"type\":\"string\"}]}}},{\"name\":\"maritalStatus\",\"type\":{\"name\":\"maritalStatus\",\"type\":\"record\",\"fields\":[{\"name\":\"coding\",\"type\":{\"type\":\"array\",\"items\":{\"name\":\"coding_record1\",\"type\":\"record\",\"fields\":[{\"name\":\"system\",\"type\":\"string\"},{\"name\":\"code\",\"type\":\"string\"},{\"name\":\"display\",\"type\":\"string\"}]}}},{\"name\":\"text\",\"type\":\"string\"}]}},{\"name\":\"multipleBirthBoolean\",\"type\":\"boolean\"},{\"name\":\"contact\",\"type\":{\"type\":\"array\",\"items\":{\"name\":\"contact_record\",\"type\":\"record\",\"fields\":[{\"name\":\"relationship\",\"type\":{\"type\":\"array\",\"items\":{\"name\":\"relationship_record\",\"type\":\"record\",\"fields\":[{\"name\":\"coding\",\"type\":{\"type\":\"array\",\"items\":{\"name\":\"coding_record2\",\"type\":\"record\",\"fields\":[{\"name\":\"system\",\"type\":\"string\"},{\"name\":\"code\",\"type\":\"string\"}]}}}]}}},{\"name\":\"name\",\"type\":{\"name\":\"name\",\"type\":\"record\",\"fields\":[{\"name\":\"use\",\"type\":\"string\"},{\"name\":\"family\",\"type\":\"string\"},{\"name\":\"given\",\"type\":{\"type\":\"array\",\"items\":\"string\"}}]}},{\"name\":\"telecom\",\"type\":{\"type\":\"array\",\"items\":{\"name\":\"telecom_record1\",\"type\":\"record\",\"fields\":[{\"name\":\"system\",\"type\":\"string\"},{\"name\":\"value\",\"type\":\"string\"},{\"name\":\"use\",\"type\":\"string\"}]}}}]}}},{\"name\":\"communication\",\"type\":{\"type\":\"array\",\"items\":{\"name\":\"communication_record\",\"type\":\"record\",\"fields\":[{\"name\":\"language\",\"type\":{\"name\":\"language\",\"type\":\"record\",\"fields\":[{\"name\":\"coding\",\"type\":{\"type\":\"array\",\"items\":{\"name\":\"coding_record\",\"type\":\"record\",\"fields\":[{\"name\":\"system\",\"type\":\"string\"},{\"name\":\"code\",\"type\":\"string\"},{\"name\":\"display\",\"type\":\"string\"}]}}},{\"name\":\"text\",\"type\":\"string\"}]}}]}}}]}"
+  GlueTable:
+    Type: AWS::Glue::Table
+    Properties: 
+      CatalogId: "525419040953"
+      DatabaseName: !Ref GlueDatabase
+      TableInput: 
+        Name: fhdl-table
+        Parameters:
+          Classification: json
+        StorageDescriptor:
+          SchemaReference:
+            SchemaId: 
+              RegistryName: FHDL-Daas-Glue-Registry
+              SchemaName: fhdlglueschema
+            SchemaVersionNumber: 1
+          InputFormat: org.apache.hadoop.mapred.TextInputFormat
+          OutputFormat: org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat
+    DependsOn: GlueSchema
+      
+  GlueJob:
+    Type: AWS::Glue::Job
+    Properties:
+      Command:
+        Name: gluestreaming
+        ScriptLocation: !Ref GlueJobPath
+      DefaultArguments:
+        "--job-bookmark-option": "job-bookmark-disable"
+        "--enable-spark-ui": "true"
+        "--spark-event-logs-path": "s3://aws-glue-assets-525419040953-ap-south-1/scripts/"
+        "--enable-metrics": "true"
+        "--TempDir": "s3://aws-glue-assets-525419040953-ap-south-1/temporary/"
+        "--enable-continuous-cloudwatch-log": "true"
+      ExecutionProperty:
+        MaxConcurrentRuns: 2
+      MaxRetries: 0
+      Name: MSK_load_to_S3
+      Role: !Ref GlueIAMArn
+      GlueVersion: 3.0

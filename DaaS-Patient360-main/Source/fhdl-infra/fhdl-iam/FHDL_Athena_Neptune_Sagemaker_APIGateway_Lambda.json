@@ -1,0 +1,193 @@
+{
+	"AWSTemplateFormatVersion": "2010-09-09",
+	"Resources": {
+		"FHDLAthenaNeptuneSagemakerAPILambdaPolicy": {
+			"Type": "AWS::IAM::ManagedPolicy",
+			"Properties": {
+				"PolicyDocument": {
+					"Version": "2012-10-17",
+					"Statement": [{
+							"Sid": "VisualEditor0",
+							"Effect": "Allow",
+							"Action": [
+								"apigateway:DELETE",
+								"apigateway:GET",
+								"apigateway:PUT",
+								"athena:CreateDataCatalog",
+								"athena:CreateNamedQuery",
+								"athena:DeleteDataCatalog",
+								"athena:GetDataCatalog",
+								"athena:GetDatabase",
+								"athena:GetPreparedStatement",
+								"athena:GetQueryExecution",
+								"athena:GetQueryResults",
+								"athena:GetQueryResultsStream",
+								"athena:GetQueryRuntimeStatistics",
+								"athena:ListDatabases",
+								"athena:ListNamedQueries",
+								"athena:ListQueryExecutions",
+								"athena:ListTableMetadata",
+								"athena:ListTagsForResource",
+								"athena:StartQueryExecution",
+								"athena:StopQueryExecution",
+								"athena:TagResource",
+								"athena:UpdateDataCatalog",
+								"lambda:CreateFunction",
+								"lambda:DeleteFunction",
+								"lambda:GetAlias",
+								"lambda:GetEventSourceMapping",
+								"lambda:GetFunction",
+								"lambda:GetFunctionConcurrency",
+								"lambda:GetFunctionConfiguration",
+								"lambda:GetFunctionUrlConfig",
+								"lambda:GetPolicy",
+								"lambda:InvokeFunction",
+								"lambda:ListAliases",
+								"lambda:ListFunctionEventInvokeConfigs",
+								"lambda:ListVersionsByFunction",
+								"lambda:UpdateFunctionCode",
+								"lambda:UpdateFunctionUrlConfig",
+								"neptune-db:CancelQuery",
+								"neptune-db:CreateMLEndpoint",
+								"neptune-db:DeleteDataViaQuery",
+								"neptune-db:GetEngineStatus",
+								"neptune-db:GetLoaderJobStatus",
+								"neptune-db:GetMLEndpointStatus",
+								"neptune-db:GetQueryStatus",
+								"neptune-db:GetStreamRecords",
+								"neptune-db:ListLoaderJobs",
+								"neptune-db:ListMLEndpoints",
+								"neptune-db:ReadDataViaQuery",
+								"neptune-db:ResetDatabase",
+								"neptune-db:StartLoaderJob",
+								"neptune-db:StartMLDataProcessingJob",
+								"neptune-db:WriteDataViaQuery",
+								"neptune-db:connect",
+								"sagemaker:AddTags",
+								"sagemaker:CreateNotebookInstance",
+								"sagemaker:CreateNotebookInstanceLifecycleConfig",
+								"sagemaker:CreatePresignedNotebookInstanceUrl",
+								"sagemaker:DeleteNotebookInstance",
+								"sagemaker:DeleteNotebookInstanceLifecycleConfig",
+								"sagemaker:DescribeNotebookInstance",
+								"sagemaker:DescribeNotebookInstanceLifecycleConfig",
+								"sagemaker:StartNotebookInstance",
+								"sagemaker:StopNotebookInstance",
+								"sagemaker:UpdateNotebookInstance",
+								"sagemaker:UpdateNotebookInstanceLifecycleConfig"
+							],
+							"Resource": [
+								"arn:aws:apigateway:*::/restapis/*",
+								"arn:aws:athena:*:525419040953:datacatalog/*",
+								"arn:aws:athena:*:525419040953:workgroup/*",
+								"arn:aws:lambda:*:525419040953:event-source-mapping:*",
+								"arn:aws:lambda:*:525419040953:function:*",
+								"arn:aws:neptune-db:*:525419040953:*/database",
+								"arn:aws:sagemaker:*:525419040953:notebook-instance-lifecycle-config/*",
+								"arn:aws:sagemaker:*:525419040953:notebook-instance/*"
+							]
+						},
+						{
+							"Sid": "VisualEditor1",
+							"Effect": "Allow",
+							"Action": [
+								"apigateway:DELETE",
+								"apigateway:GET",
+								"lambda:CreateFunction",
+								"lambda:DeleteFunction",
+								"lambda:GetAlias",
+								"lambda:GetEventSourceMapping",
+								"lambda:GetFunction",
+								"lambda:GetFunctionConcurrency",
+								"lambda:GetFunctionConfiguration",
+								"lambda:GetFunctionUrlConfig",
+								"lambda:GetPolicy",
+								"lambda:InvokeFunction",
+								"lambda:ListAliases",
+								"lambda:ListFunctionEventInvokeConfigs",
+								"lambda:ListVersionsByFunction",
+								"lambda:UpdateFunctionCode",
+								"lambda:UpdateFunctionUrlConfig"
+							],
+							"Resource": [
+								"arn:aws:apigateway:*::/restapis/*/resources/*",
+								"arn:aws:lambda:*:525419040953:function:*"
+							]
+						},
+						{
+							"Sid": "VisualEditor2",
+							"Effect": "Allow",
+							"Action": [
+								"apigateway:DELETE",
+								"apigateway:GET",
+								"apigateway:POST",
+								"apigateway:PUT"
+							],
+							"Resource": [
+								"arn:aws:apigateway:*::/restapis/*/stages/*/sdks/*",
+								"arn:aws:apigateway:*::/restapis/*/resources/*/methods/*/responses/*"
+							]
+						},
+						{
+							"Sid": "VisualEditor3",
+							"Effect": "Allow",
+							"Action": [
+								"apigateway:DELETE",
+								"apigateway:GET",
+								"apigateway:POST",
+								"apigateway:PUT"
+							],
+							"Resource": [
+								"arn:aws:apigateway:*::/account",
+								"arn:aws:apigateway:*::/apikeys",
+								"arn:aws:apigateway:*::/apikeys/*",
+								"arn:aws:apigateway:*::/domainnames/*/basepathmappings",
+								"arn:aws:apigateway:*::/domainnames/*/basepathmappings/*",
+								"arn:aws:apigateway:*::/restapis",
+								"arn:aws:apigateway:*::/restapis/*/authorizers",
+								"arn:aws:apigateway:*::/restapis/*/authorizers/*",
+								"arn:aws:apigateway:*::/restapis/*/gatewayresponses",
+								"arn:aws:apigateway:*::/restapis/*/gatewayresponses/*",
+								"arn:aws:apigateway:*::/restapis/*/models",
+								"arn:aws:apigateway:*::/restapis/*/models/*",
+								"arn:aws:apigateway:*::/restapis/*/requestvalidators",
+								"arn:aws:apigateway:*::/restapis/*/requestvalidators/*",
+								"arn:aws:apigateway:*::/restapis/*/resources",
+								"arn:aws:apigateway:*::/restapis/*/resources/*/methods/*/integration",
+								"arn:aws:apigateway:*::/restapis/*/resources/*/methods/*/integration/responses/*",
+								"arn:aws:apigateway:*::/restapis/*/stages",
+								"arn:aws:apigateway:*::/restapis/*/stages/*",
+								"arn:aws:apigateway:*::/restapis/models/*/template",
+								"arn:aws:apigateway:*::/vpclinks",
+								"arn:aws:apigateway:*::/vpclinks/*"
+							]
+						},
+						{
+							"Sid": "VisualEditor4",
+							"Effect": "Allow",
+							"Action": [
+								"apigateway:DELETE",
+								"apigateway:GET"
+							],
+							"Resource": "arn:aws:apigateway:*::/restapis/*/resources/*/methods/*"
+						},
+						{
+							"Sid": "VisualEditor5",
+							"Effect": "Allow",
+							"Action": [
+								"athena:ListDataCatalogs",
+								"lambda:ListEventSourceMappings",
+								"lambda:ListFunctions",
+								"lambda:ListLayers",
+								"sagemaker:ListActions",
+								"sagemaker:ListNotebookInstanceLifecycleConfigs",
+								"sagemaker:ListNotebookInstances"
+							],
+							"Resource": "*"
+						}
+					]
+				}
+			}
+		}
+	}
+}

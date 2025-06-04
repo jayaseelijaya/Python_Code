@@ -1,0 +1,8 @@
+{
+    "Profile Name": "syntaxscore8",
+    "Organization Name": "hospitalan",
+    "Department Name": "cardiologyan",
+    "Algorithm Endpoint": "https: //www.hospital-an.com/algo/syntaxScore6",
+    "Proposition Tags": "orgId, profileName, propositionId",
+    "Profile Structure File": "s3://daas-profile-json/SyntaxScore.structuredefinition.json"
+}

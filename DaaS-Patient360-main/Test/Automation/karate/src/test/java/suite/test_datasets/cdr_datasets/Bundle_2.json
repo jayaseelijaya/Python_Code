@@ -1,0 +1,44 @@
+{
+	"resourceType": "Bundle",
+	"type": "transaction",
+	"entry": [{
+			"fullUrl": "urn:uuid:088b23c8-3233-11ec-8d3d-0242ac130003",
+			"resource": {
+				"resourceType": "Patient",
+				"name": [{
+					"given": ["P.SKY"]
+				}]
+			},
+			"request": {
+				"method": "POST",
+				"url": "Patient"
+			}
+		},
+		{
+      "fullUrl": "urn:uuid:107f0436-3261-11ec-8d3d-0242ac130003",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "status": "stopped",
+        "intent": "order",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "313782",
+              "display": "Acetaminophen 325 MG Oral Tablet"
+            }
+          ],
+          "text": "Acetaminophen 325 MG Oral Tablet"
+        },
+        "subject": {
+          "reference": "urn:uuid:088b23c8-3233-11ec-8d3d-0242ac130003"
+        }
+      },
+      "request": {
+        "method": "POST",
+        "url": "MedicationRequest"
+      }
+    }
+    ]
+}
+	

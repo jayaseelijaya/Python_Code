@@ -1,0 +1,16 @@
+applications:
+- name: {{ apps['rmq-listener']['cf_app_name'] }}
+  disk_quota: 1G
+  docker:
+    image: {{ docker_image }}
+    username: {{ docker_username }}
+  instances: 1
+  memory: 768M
+  routes:
+  - route: {{ apps['rmq-listener']['cf_app_name'] }}-dev.cloud.pcftest.com
+  env:
+    logging.level.org.springframework.web: WARN
+    logging.level.org.apache: WARN
+    logging.level.com.philips: INFO
+    iamServerUrl: https://site.hsop.com 
+    iamServerUrl_access_token: https://site.hsop.com/am

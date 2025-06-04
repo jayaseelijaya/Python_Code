@@ -1,0 +1,12 @@
+APP_START_ORDER:
+- fhir-service
+api_host: api.cloud.pcftest.com
+apps:
+  fhir-service:
+    cf_app_name: fhir-service
+    docker_image: docker.na1.hsdp.io/client-cao-aicoe_aicoe-fhdl-dev/fhdl-fhir-service:1.0
+login_host: login.cloud.pcftest.com
+org_name: client-cao-aicoe
+space_name: aicoe-fhdl-dev
+end_points:
+  vault_instance: fhdl-vault

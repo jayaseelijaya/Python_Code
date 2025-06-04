@@ -1,0 +1,45 @@
+{
+  "selected_dominance": "Right",
+  "lesion_profile": [
+	{
+      "lesion": {
+        "number": 1,
+        "segments_list": [
+		  {
+            "segment": {
+              "number": "14",
+              "name": "Left posterolateral",
+			  "description": ""
+			}
+          }
+        ],
+        "totalocclusion": true,
+        "first_totalocclusion_segment_number": "14",
+        "is_totalocclusion_age_gt_3months": "Unknown",
+        "blunt_stump": false,
+        "bridging": false,
+        "sidebranch_at_the_origin_of_occlusion": "Yes_AllSideBranches_Lt_1_point_5_mm_And_GtOrEqual_1_point_5_mm_Are_Involved",
+		"trifurcation": false,
+        "bifurcation": true,
+        "bifurcation_medina": "Medina_0_1_1",
+        "bifurcation_angulation_lt_70": true,
+        "severe_tortuosity": false,
+        "heavy_calcification": true,
+        "thrombus": true,
+        "comments": ""
+      }
+    }
+  ],
+  "diffusely_diseased_narrowed_segment": {
+    "present": true,
+	"diffusely_diseased_narrowed_segment_list": [
+      "11",
+      "12",
+      "12a",
+      "12b",
+	  "13",
+	  "14"
+    ]
+  },
+  "score": 16.5
+}

@@ -1,0 +1,499 @@
+AWSTemplateFormatVersion: 2010-09-09
+
+Parameters:
+  GlueSchemaRegistryFullAccessArn:
+    Type: String
+    Description: Arn of Glue Schema Registry Full Access
+    Default: arn:aws:iam::aws:policy/AWSGlueSchemaRegistryFullAccess
+Resources:
+  FHDLDaaSKafkaConnect:            
+    Type: 'AWS::IAM::ManagedPolicy'
+    Properties:
+      PolicyDocument: 
+        Version: '2012-10-17'
+        Statement:
+          - Sid: VisualEditor0
+            Effect: Allow
+            Action:
+              - kafkaconnect:DescribeConnector
+              - kafkaconnect:DescribeWorkerConfiguration
+              - kafkaconnect:DescribeCustomPlugin
+            Resource:
+              - arn:aws:kafkaconnect:ap-south-1:525419040953:worker-configuration/*/*
+              - arn:aws:kafkaconnect:ap-south-1:525419040953:custom-plugin/*/*
+              - arn:aws:kafkaconnect:ap-south-1:525419040953:connector/*/*
+              - arn:aws:wafv2:*:525419040953:*/webacl/*/*          
+          - Sid: VisualEditor1
+            Effect: Allow
+            Action:
+              - kafkaconnect:ListConnectors
+              - kafkaconnect:ListWorkerConfigurations
+              - kafkaconnect:CreateConnector
+              - kafkaconnect:ListCustomPlugins
+              - kafkaconnect:CreateWorkerConfiguration
+              - kafkaconnect:UpdateConnector       
+              - kafkaconnect:CreateCustomPlugin             
+              - kafkaconnect:DeleteConnector          
+              - kafkaconnect:DeleteCustomPlugin           
+            Resource: '*'
+            
+  FHDLDaaSDynamodbPolicy:  
+    Type: 'AWS::IAM::ManagedPolicy'
+    Properties:
+      PolicyDocument: 
+        Version: '2012-10-17'
+        Statement:
+          - Sid: VisualEditor0
+            Effect: Allow
+            Action:
+              - dynamodb:BatchGetItem
+              - dynamodb:BatchWriteItem
+              - dynamodb:UntagResource
+              - dynamodb:PutItem
+              - dynamodb:DeleteItem
+              - dynamodb:Scan
+              - dynamodb:Query
+              - dynamodb:UpdateItem
+              - dynamodb:DeleteTable
+              - dynamodb:CreateTable
+              - dynamodb:TagResource
+              - dynamodb:DescribeTable
+              - dynamodb:GetItem
+              - dynamodb:CreateGlobalTable
+              - dynamodb:UpdateTable
+            Resource: arn:aws:dynamodb:*:525419040953:table/*
+          - Sid: VisualEditor1
+            Effect: Allow
+            Action:
+              - dynamodb:DescribeGlobalTable
+              - dynamodb:Scan
+              - dynamodb:Query
+              - dynamodb:CreateGlobalTable
+              - dynamodb:GetRecords
+            Resource:
+              - arn:aws:dynamodb:*:525419040953:table/*/stream/*
+              - arn:aws:dynamodb::525419040953:global-table/*
+              - arn:aws:dynamodb:*:525419040953:table/*/index/*
+          - Sid: VisualEditor2
+            Effect: Allow
+            Action:
+              - dynamodb:DescribeReservedCapacityOfferings
+              - dynamodb:ListTables
+              - dynamodb:DescribeReservedCapacity
+              - dynamodb:DescribeLimits
+            Resource: "*"
+
+  FHDLDaaSEC2:  
+    Type: 'AWS::IAM::ManagedPolicy'
+    Properties:
+      PolicyDocument: 
+        Version: '2012-10-17'
+        Statement:
+          - Sid: VisualEditor0
+            Effect: Allow
+            Action:
+              - ec2:CreateDhcpOptions
+              - ec2:AuthorizeSecurityGroupIngress
+              - ec2:DeleteSubnet
+              - ec2:ReplaceRouteTableAssociation
+              - ec2:DetachClassicLinkVpc
+              - ec2:CreateKeyPair
+              - ec2:AttachInternetGateway
+              - ec2:AssociateVpcCidrBlock
+              - ec2:ReplaceRoute
+              - ec2:UpdateSecurityGroupRuleDescriptionsIngress
+              - ec2:AssociateRouteTable
+              - ec2:DeleteRouteTable
+              - ec2:DisassociateVpcCidrBlock
+              - ec2:RevokeSecurityGroupEgress
+              - ec2:CreateRoute
+              - ec2:DeleteVpnConnection
+              - ec2:UpdateSecurityGroupRuleDescriptionsEgress
+              - ec2:CreateTags
+              - ec2:ModifyNetworkInterfaceAttribute
+              - ec2:CreateRouteTable
+              - ec2:CreateLocalGatewayRouteTableVpcAssociation
+              - ec2:RunInstances
+              - ec2:ModifySecurityGroupRules
+              - ec2:DetachInternetGateway
+              - ec2:DisassociateRouteTable
+              - ec2:ReplaceNetworkAclAssociation
+              - ec2:RevokeSecurityGroupIngress
+              - ec2:CreateNetworkInterface
+              - ec2:DetachVpnGateway
+              - ec2:CreateFlowLogs
+              - ec2:DeleteDhcpOptions
+              - ec2:AssociateSubnetCidrBlock
+              - ec2:DeleteVpc
+              - ec2:CreateEgressOnlyInternetGateway
+              - ec2:AssociateAddress
+              - ec2:CreateSubnet
+              - ec2:DeleteKeyPair
+              - ec2:CreateVpnConnection
+              - ec2:DisassociateAddress
+              - ec2:DeleteTags
+              - ec2:CreateVpc
+              - ec2:DescribeVpcAttribute
+              - ec2:ModifySubnetAttribute
+              - ec2:CreateSecurityGroup
+              - ec2:CreateNetworkAcl
+              - ec2:ModifyVpcAttribute
+              - ec2:ReleaseAddress
+              - ec2:AuthorizeSecurityGroupEgress
+              - ec2:AssociateDhcpOptions
+              - ec2:DeleteEgressOnlyInternetGateway
+              - ec2:TerminateInstances
+              - ec2:DetachNetworkInterface
+              - ec2:AttachVpnGateway
+              - ec2:DeleteRoute
+              - ec2:CreateVpnConnectionRoute
+              - ec2:DisassociateSubnetCidrBlock
+              - ec2:AllocateAddress
+              - ec2:DeleteVpnConnectionRoute
+              - ec2:DeleteSecurityGroup
+              - ec2:ModifyVpcTenancy
+              - ec2:AttachNetworkInterface
+              - ec2:EnableVpcClassicLinkDnsSupport
+              - ec2:AssociateIamInstanceProfile
+            Resource:
+              - arn:aws:ec2:*:525419040953:launch-template/*
+              - arn:aws:ec2:*:525419040953:elastic-ip/*
+              - arn:aws:ec2:*:525419040953:volume/*
+              - arn:aws:ec2:*:525419040953:prefix-list/*
+              - arn:aws:ec2:*:525419040953:dhcp-options/*
+              - arn:aws:ec2:*:525419040953:placement-group/*
+              - arn:aws:ec2:*:525419040953:ipv4pool-ec2/*
+              - arn:aws:ec2:*:525419040953:subnet/*
+              - arn:aws:ec2:*:525419040953:route-table/*
+              - arn:aws:ec2:*::snapshot/*
+              - arn:aws:ec2:*:525419040953:security-group/*
+              - arn:aws:ec2:*:525419040953:security-group-rule/*
+              - arn:aws:ec2:*:525419040953:instance/*
+              - arn:aws:ec2:*:525419040953:egress-only-internet-gateway/*
+              - arn:aws:ec2:*:525419040953:vpn-connection/*
+              - arn:aws:ec2:*:525419040953:vpc/*
+              - arn:aws:ec2:*:525419040953:ipv6pool-ec2/*
+              - arn:aws:ec2:*:525419040953:key-pair/*
+          - Sid: VisualEditor1
+            Effect: Allow
+            Action:
+              - ec2:DescribeAddresses
+              - ec2:DescribeInstances
+              - ec2:DescribeFlowLogs
+              - ec2:DescribeTransitGatewayRouteTableAnnouncements
+              - ec2:DescribeDhcpOptions
+              - ec2:DescribeInternetGateways
+              - ec2:DescribeNetworkInterfaces
+              - ec2:CreateDefaultSubnet
+              - ec2:DescribeAvailabilityZones
+              - ec2:DescribeNetworkInterfaceAttribute
+              - ec2:DescribeLocalGatewayRouteTableVpcAssociations
+              - ec2:DescribeAccountAttributes
+              - ec2:DescribeLocalGatewayRouteTables
+              - ec2:DescribeNetworkInterfacePermissions
+              - ec2:DescribeKeyPairs
+              - ec2:DescribeNetworkAcls
+              - ec2:DescribeRouteTables
+              - ec2:DescribeEgressOnlyInternetGateways
+              - ec2:DescribeVpnConnections
+              - ec2:DescribeTags
+              - ec2:DescribeSecurityGroups
+              - ec2:RestoreAddressToClassic
+              - ec2:CreateDefaultVpc
+              - ec2:DescribeSecurityGroupRules
+              - ec2:DescribeSecurityGroupReferences
+              - ec2:DescribeVpcs
+              - ec2:DescribeIpv6Pools
+              - ec2:DescribeSubnets
+              - ec2:DescribeVpnGateways
+            Resource: "*"
+            
+  FHDLDaaSS3Policy:   
+    Type: 'AWS::IAM::ManagedPolicy'
+    Properties:
+      PolicyDocument: 
+        Version: '2012-10-17'
+        Statement:
+          - Sid: VisualEditor0
+            Effect: Allow
+            Action:
+              - s3:PutBucketOwnershipControls
+              - s3:CreateBucket
+              - s3:ListMultipartUploadParts
+              - s3:ListBucketMultipartUploads
+              - s3:ListBucketVersions
+              - s3:ListAccessPointsForObjectLambda
+              - s3:ListAllMyBuckets
+              - s3:ListJobs
+              - s3:ListAccessPoints
+              - S3:GetBucketPolicy
+              - s3:GetBucketAcl
+              - s3:GetBucketLocation
+              - s3:ListBucket
+              - s3:PutObject
+              - s3:GetObject
+            Resource: 
+              - arn:aws:s3:::*/*
+              - arn:aws:s3:::*
+              - arn:aws:s3:::*/*/*
+              
+  FHDLDaaSCloudwatchPolicy:
+    Type: 'AWS::IAM::ManagedPolicy'
+    Properties:
+      PolicyDocument: 
+        Version: '2012-10-17'
+        Statement:
+          - Sid: VisualEditor0
+            Effect: Allow
+            Action:
+              - cloudwatch:DescribeInsightRules
+              - tag:GetResources
+              - tag:UntagResources
+              - cloudwatch:GetMetricData
+              - tag:GetTagValues
+              - cloudwatch:GetMetricStatistics
+              - tag:GetTagKeys
+              - cloudwatch:ListMetrics
+              - cloudwatch:ListManagedInsightRules
+              - tag:TagResources
+              - cloudwatch:DescribeAnomalyDetectors
+              - cloudwatch:ListMetricStreams
+              - cloudwatch:DescribeAlarmsForMetric
+              - cloudwatch:Get
+              - cloudwatch:ListDashboards
+            Resource: "*"
+          - Sid: VisualEditor1
+            Effect: Allow
+            Action:
+              - cloudwatch:PutMetricAlarm
+              - cloudwatch:EnableAlarmActions
+              - cloudwatch:DisableAlarmActions
+              - cloudwatch:List*
+              - cloudwatch:Describe*
+            Resource:
+              - arn:aws:cloudwatch:ap-south-1:525419040953:insight-rule/*
+              - arn:aws:cloudwatch:ap-south-1:525419040953:alarm:*
+          - Sid: VisualEditor2
+            Effect: Allow
+            Action:
+              - logs:GetLogEvents
+              - logs:CreateLogDelivery
+              - logs:PutResourcePolicy
+              - logs:UpdateLogDelivery 
+              - logs:ListLogDeliveries
+              - logs:DeleteLogDelivery
+              - logs:DescribeResourcePolicies
+              - logs:GetLogDelivery
+              - logs:DescribeLogGroups
+              - logs:GetLogEvents
+              - logs:DescribeLogStreams
+            Resource:
+              - arn:aws:logs:*:*:/*/*
+            
+  FHDLDaaSCloudformationPolicy:
+    Type: 'AWS::IAM::ManagedPolicy'
+    Properties:
+      PolicyDocument: 
+        Version: '2012-10-17'
+        Statement:
+          - Sid: VisualEditor0
+            Effect: Allow
+            Action:
+              - cloudformation:CreateStack
+              - cloudformation:DeleteStack
+              - cloudformation:GetTemplateSummary
+            Resource:
+              - arn:aws:cloudformation:ap-south-1:525419040953:stack/*/*
+              - arn:aws:cloudformation:ap-south-1:525419040953:stackset/*:*
+
+               
+  FHDLDaaSRedshiftPolicy:
+    Type: 'AWS::IAM::ManagedPolicy'
+    Properties:
+      PolicyDocument: 
+        Version: '2012-10-17'
+        Statement:
+          - Sid: VisualEditor0
+            Effect: Allow
+            Action:
+              - redshift:DeleteClusterSecurityGroup
+              - redshift:DeleteTags
+              - redshift:DeleteCluster
+              - redshift:CreateTags
+              - redshift:DeleteClusterSubnetGroup
+              - redshift:CreateCluster
+              - redshift:ModifyCluster
+            Resource:
+              - arn:aws:redshift:ap-south-1:525419040953:dbname:*/*
+              - arn:aws:redshift:ap-south-1:525419040953:usagelimit:*
+              - arn:aws:redshift:ap-south-1:525419040953:eventsubscription:*
+              - arn:aws:redshift:ap-south-1:525419040953:hsmclientcertificate:*
+              - arn:aws:redshift:ap-south-1:525419040953:subnetgroup:*
+              - arn:aws:redshift:ap-south-1:525419040953:hsmconfiguration:*
+              - arn:aws:redshift:ap-south-1:525419040953:snapshotschedule:*
+              - arn:aws:redshift:ap-south-1:525419040953:snapshot:*/*
+              - arn:aws:redshift:ap-south-1:525419040953:dbgroup:*/*
+              - arn:aws:redshift:ap-south-1:525419040953:securitygroupingress:*/cidrip/*
+              - arn:aws:redshift:ap-south-1:525419040953:securitygroupingress:*/ec2securitygroup/*/*
+              - arn:aws:redshift:ap-south-1:525419040953:securitygroup:*/ec2securitygroup/*/*
+              - arn:aws:redshift:ap-south-1:525419040953:cluster:*
+              - arn:aws:redshift:ap-south-1:525419040953:dbuser:*/*
+              - arn:aws:redshift:ap-south-1:525419040953:parametergroup:*
+          - Sid: VisualEditor1
+            Effect: Allow
+            Action:
+              - redshift:ListDatabases
+              - redshift:DescribeClusterSecurityGroups
+              - redshift:ViewQueriesFromConsole
+              - redshift:DescribeClusterSubnetGroups
+              - redshift:ListTables
+              - redshift:CancelQuery
+              - redshift:ListSchemas
+              - redshift:DescribeQuery
+              - redshift:DescribeClusterVersions
+              - redshift:ListSavedQueries
+              - redshift:DescribeClusters
+              - redshift:DescribeStorage
+              - redshift:DescribeTable
+            Resource: "*"
+
+     
+  FHDLDaaSIAMPolicy:                   
+    Type: 'AWS::IAM::ManagedPolicy'
+    Properties:
+      PolicyDocument:   
+        Version: '2012-10-17'
+        Statement:
+          - Sid: VisualEditor0
+            Effect: Allow
+            Action: iam:PassRole
+            Resource: 
+              - arn:aws:iam::*:role/AWSGlueServiceRole*
+              - arn:aws:iam::*:role/service-role/AWSGlueServiceRole*
+            Condition:
+              StringLike:
+                iam:PassedToService: glue.amazonaws.com
+          - Sid: VisualEditor1
+            Effect: Allow
+            Action: iam:CreateServiceLinkedRole
+            Resource:
+              - arn:aws:iam::*:role/aws-service-role/redshift.amazonaws.com/AWSServiceRoleForRedshift
+              - arn:aws:iam::525419040953:role/aws-service-role/kafka.amazonaws.com/AWSServiceRoleForKafka*
+              - arn:aws:iam::525419040953:role/aws-service-role/delivery.logs.amazonaws.com/AWSServiceRoleForLogDelivery*
+            Condition:
+              StringLike:
+                iam:AWSServiceName: redshift.amazonaws.com
+          - Sid: VisualEditor2
+            Effect: Allow
+            Action:
+              - iam:CreateInstanceProfile
+              - iam:DeleteInstanceProfile
+              - iam:GetRole
+              - iam:GetPolicyVersion
+              - iam:GetInstanceProfile
+              - iam:GetPolicy
+              - iam:ListAttachedRolePolicies
+              - iam:CreateRole
+              - iam:DeleteRole
+              - iam:GetGroupPolicy
+              - iam:ListRolePolicies
+              - iam:GetRolePolicy
+            Resource:
+              - arn:aws:iam::525419040953:instance-profile/*
+              - arn:aws:iam::525419040953:group/*
+              - arn:aws:iam::525419040953:role/*
+              - arn:aws:iam::525419040953:policy/*
+          - Sid: VisualEditor3
+            Effect: Allow
+            Action:
+              - iam:ListRoles
+              - iam:ListUsers
+              - iam:ListGroups
+            Resource: "*"
+          - Sid: VisualEditor4
+            Effect: Allow
+            Action: iam:CreateServiceLinkedRole
+            Resource: arn:aws:iam::*:role/aws-service-role/events.amazonaws.com/AWSServiceRoleForCloudWatchEvents*
+            Condition:
+              StringLike:
+                iam:AWSServiceName: events.amazonaws.com
+
+          
+ 
+  FHDLDaaSKafkasecurity:
+    Type: 'AWS::IAM::ManagedPolicy'
+    Properties:
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Sid: VisualEditor0
+            Effect: Allow
+            Action:
+              - kafka-cluster:AlterGroup
+              - kafka-cluster:CreateTopic
+              - kafka-cluster:DescribeCluster
+              - kafka-cluster:ReadData
+              - kafka-cluster:DescribeTopic
+              - kafka-cluster:DescribeGroup
+              - kafka-cluster:Connect
+              - kafka-cluster:WriteData
+            Resource:
+              - arn:aws:kafka:ap-south-1:525419040953:topic/*/*/*
+              - arn:aws:kafka:ap-south-1:525419040953:cluster/*/*
+              - arn:aws:kafka:ap-south-1:525419040953:group/*/*/*
+              - arn:aws:kafka:ap-south-1:525419040953:transactional-id/*/*/*
+  FHDLDAAS:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - ec2.amazonaws.com
+                - redshift.amazonaws.com
+            Action:
+              - 'sts:AssumeRole'
+      ManagedPolicyArns:
+        - Ref: FHDLDaaSKafkaConnect
+        - Ref: FHDLDaaSEC2
+        - Ref: FHDLDaaSS3Policy
+        - Ref: FHDLDaaSIAMPolicy
+        - Ref: FHDLDaaSCloudformationPolicy
+        - Ref: FHDLDaaSCloudwatchPolicy
+        - Ref: FHDLDaaSRedshiftPolicy
+        - Ref: GlueSchemaRegistryFullAccessArn
+        - Ref: FHDLDaaSDynamodbPolicy
+        
+  FHDLDaaSEC2InstanceProfileRole:
+    Type: AWS::IAM::Role
+    Properties: 
+      AssumeRolePolicyDocument: 
+        Version: "2012-10-17"
+        Statement: 
+          - Effect: Allow
+            Principal: 
+              Service: ec2.amazonaws.com
+            Action: 
+              - 'sts:AssumeRole'
+      RoleName: FHDL-DaaS-MSK-Security-Role
+      ManagedPolicyArns:
+        - Ref: FHDLDaaSKafkasecurity
+        - Ref: FHDLDaaSEC2
+        - Ref: FHDLDaaSS3Policy
+        
+  FHDLDaaSEC2InstanceProfile:   
+    Type: AWS::IAM::InstanceProfile
+    Properties: 
+      InstanceProfileName: FHDL-DaaS-MSK-Security-Role
+      Path: /
+      Roles: 
+        - Ref: FHDLDaaSEC2InstanceProfileRole
+Outputs:
+  FHDLDaaSEC2InstanceProfile:
+    Description: ARN of FHDL DaaS EC2 Instance Profile
+    Value: !Ref FHDLDaaSEC2InstanceProfile
+    Export:
+      Name: 
+        'Fn::Sub': '${AWS::StackName}-FHDLDaaSEC2InstanceProfileARN'

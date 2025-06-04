@@ -1,0 +1,6 @@
+{
+    "iam_url" : "https://iam-service.us-east.philips-healthsuite.com",
+	"cdr_url" : "https://cdr-cdl-ops-prod.us-east.philips-healthsuite.com",
+	"fhir_org_id" : "27dbe6d4-89f8-475e-9f23-fa44fdef3281"
+}
+

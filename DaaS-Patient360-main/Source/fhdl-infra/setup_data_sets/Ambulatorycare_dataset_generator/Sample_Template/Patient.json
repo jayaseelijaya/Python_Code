@@ -1,0 +1,80 @@
+{
+		"resourceType": "Patient",
+		"id": "37fb6124-3268-11ec-8d3d-0242ac130003",
+		"meta": {
+        "profile": ["http://hl7.org/fhir/uv/ips/StructureDefinition/Patient-uv-ips"]
+      },
+		
+		"identifier": [{
+			"use": "usual",
+			"type": {
+				"coding": [{
+					"system": "http://hl7.org/fhir/v2/0203",
+					"code": "MR"
+				}]
+			},
+			"period": {
+				"start": "2001-05-06"
+			}
+		}],
+		"name": [{
+			"given": [
+				"Aaron69"
+			]
+		}],
+		"telecom": [{
+			"system": "phone",
+			"value": "555-677-3119",
+			"use": "home"
+		}],
+		"gender": "male",
+		"birthDate": "1945-12-10",
+		"address": [{
+			"line": [
+				"894 Brakus Bypass"
+			],
+			"city": "Taunton",
+			"state": "Massachusetts",
+			"postalCode": "02718",
+			"country": "US"
+		}],
+		"maritalStatus": {
+			"coding": [{
+				"system": "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus",
+				"code": "S",
+				"display": "S"
+			}],
+			"text": "S"
+		},
+		"multipleBirthBoolean": false,
+		"contact": [{
+			"relationship": [{
+				"coding": [{
+					"system": "http://hl7.org/fhir/v2/0131",
+					"code": "C"
+				}]
+			}],
+			"name": {
+				"use": "usual",
+				"family": "Abels",
+				"given": [
+					"Sarahbone"
+				]
+			},
+			"telecom": [{
+				"system": "phone",
+				"value": "0690383372",
+				"use": "mobile"
+			}]
+		}],
+		"communication": [{
+			"language": {
+				"coding": [{
+					"system": "urn:ietf:bcp:47",
+					"code": "en-US",
+					"display": "English"
+				}],
+				"text": "English"
+			}
+		}]
+	}

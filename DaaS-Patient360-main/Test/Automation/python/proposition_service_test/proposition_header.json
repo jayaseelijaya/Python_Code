@@ -1,0 +1,9 @@
+{
+    "Proposition Name": "PD-DID-P7",
+    "Profile Name": "syntaxscore7",
+    "Organization Name": "hospitalam",
+    "Department Name": "cardiologyam",
+    "Algorithm Endpoint": "https: //www.hospital-am.com/algo/syntaxScore7",
+    "Proposition Tags": "orgId, profileName, propositionId",
+    "Profile Structure File": "s3://daas-profile-json/SyntaxScore.structuredefinition.json"
+}

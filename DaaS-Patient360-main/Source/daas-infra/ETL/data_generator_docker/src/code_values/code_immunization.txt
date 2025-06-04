@@ -1,0 +1,4 @@
+Infusion intraarterial catheter,Infusion intracardiac,Infusion intracoronary,Infusion intraosseous continuous,Infusion intrathecal,Infusion intravenous,Inhalation respiratory, Inhalation oral intermittent flow, 
+Inhalation oral rebreather mask,Injection for cholangiography,Injection cervical, Injection epidural,Injection epidural push,Injection extracorporeal,Injection gastric button, 
+Injection gingival
+ 

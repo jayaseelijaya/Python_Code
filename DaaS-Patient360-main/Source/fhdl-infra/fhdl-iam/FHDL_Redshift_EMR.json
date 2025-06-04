@@ -1,0 +1,133 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Resources": {
+    "FHDLRedshiftEMRPolicy": {
+      "Type": "AWS::IAM::ManagedPolicy",
+      "Properties": {
+        "PolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Sid": "VisualEditor0",
+              "Effect": "Allow",
+              "Action": [
+                "elasticmapreduce:AddTags",
+                "elasticmapreduce:CancelSteps",
+                "elasticmapreduce:CreateEditor",
+                "elasticmapreduce:DeleteEditor",
+                "elasticmapreduce:DescribeCluster",
+                "elasticmapreduce:DescribeEditor",
+                "elasticmapreduce:DescribeJobFlows",
+                "elasticmapreduce:DescribeNotebookExecution",
+                "elasticmapreduce:DescribeStep",
+                "elasticmapreduce:DescribeStudio",
+                "elasticmapreduce:ListBootstrapActions",
+                "elasticmapreduce:ListInstances",
+                "elasticmapreduce:ListSteps",
+                "elasticmapreduce:ModifyCluster",
+                "elasticmapreduce:StartEditor",
+                "elasticmapreduce:StopEditor",
+                "elasticmapreduce:UpdateEditor",
+                "redshift:CreateCluster",
+                "redshift:CreateClusterSecurityGroup",
+                "redshift:CreateClusterSubnetGroup",
+                "redshift:DeleteCluster",
+                "redshift:DescribeClusterParameters",
+                "redshift:DescribeLoggingStatus",
+                "redshift:DescribeTags",
+                "redshift:ModifyAquaConfiguration",
+                "redshift:ModifyCluster",
+                "redshift:PauseCluster",
+                "redshift:RebootCluster",
+                "redshift:ResizeCluster",
+                "redshift:ResumeCluster"
+              ],
+              "Resource": [
+                "arn:aws:elasticmapreduce:*:525419040953:cluster/*",
+                "arn:aws:elasticmapreduce:*:525419040953:editor/*",
+                "arn:aws:elasticmapreduce:*:525419040953:notebook-execution/*",
+                "arn:aws:elasticmapreduce:*:525419040953:studio/*",
+                "arn:aws:redshift:*:525419040953:cluster:*",
+                "arn:aws:redshift:*:525419040953:dbgroup:*/*",
+                "arn:aws:redshift:*:525419040953:dbname:*/*",
+                "arn:aws:redshift:*:525419040953:dbuser:*/*",
+                "arn:aws:redshift:*:525419040953:eventsubscription:*",
+                "arn:aws:redshift:*:525419040953:hsmclientcertificate:*",
+                "arn:aws:redshift:*:525419040953:hsmconfiguration:*",
+                "arn:aws:redshift:*:525419040953:parametergroup:*",
+                "arn:aws:redshift:*:525419040953:securitygroup:*/ec2securitygroup/*/*",
+                "arn:aws:redshift:*:525419040953:securitygroupingress:*/cidrip/*",
+                "arn:aws:redshift:*:525419040953:securitygroupingress:*/ec2securitygroup/*/*",
+                "arn:aws:redshift:*:525419040953:snapshot:*/*",
+                "arn:aws:redshift:*:525419040953:snapshotcopygrant:*",
+                "arn:aws:redshift:*:525419040953:snapshotschedule:*",
+                "arn:aws:redshift:*:525419040953:subnetgroup:*",
+                "arn:aws:redshift:*:525419040953:usagelimit:*"
+              ]
+            },
+            {
+              "Sid": "VisualEditor1",
+              "Effect": "Allow",
+              "Action": [
+                "elasticmapreduce:CreateRepository",
+                "elasticmapreduce:CreateSecurityConfiguration",
+                "elasticmapreduce:CreateStudio",
+                "elasticmapreduce:DeleteSecurityConfiguration",
+                "elasticmapreduce:DescribeSecurityConfiguration",
+                "elasticmapreduce:LinkRepository",
+                "elasticmapreduce:ListClusters",
+                "elasticmapreduce:ListEditors",
+                "elasticmapreduce:ListNotebookExecutions",
+                "elasticmapreduce:ListReleaseLabels",
+                "elasticmapreduce:ListRepositories",
+                "elasticmapreduce:ListSecurityConfigurations",
+                "elasticmapreduce:ListStudioSessionMappings",
+                "elasticmapreduce:ListStudios",
+                "elasticmapreduce:UpdateRepository",
+                "elasticmapreduce:ViewEventsFromAllClustersInConsole",
+                "redshift-data:DescribeStatement",
+                "redshift-data:GetStatementResult",
+                "redshift-data:ListStatements",
+                "redshift:CancelQuery",
+                "redshift:CancelQuerySession",
+                "redshift:CreateEndpointAccess",
+                "redshift:DescribeAccountAttributes",
+                "redshift:DescribeClusterParameterGroups",
+                "redshift:DescribeClusterSecurityGroups",
+                "redshift:DescribeClusterSnapshots",
+                "redshift:DescribeClusterSubnetGroups",
+                "redshift:DescribeClusterTracks",
+                "redshift:DescribeClusterVersions",
+                "redshift:DescribeClusters",
+                "redshift:DescribeEndpointAccess",
+                "redshift:DescribeEvents",
+                "redshift:DescribeNodeConfigurationOptions",
+                "redshift:DescribeQuery",
+                "redshift:DescribeStorage",
+                "redshift:DescribeTable",
+                "redshift:ListDatabases",
+                "redshift:ListSchemas",
+                "redshift:ListTables",
+                "redshift:ModifyAuthenticationProfile",
+                "redshift:ViewQueriesFromConsole"
+              ],
+              "Resource": "*"
+            },
+            {
+              "Sid": "VisualEditor2",
+              "Effect": "Allow",
+              "Action": [
+                "redshift-data:DescribeTable",
+                "redshift-data:ExecuteStatement",
+                "redshift-data:ListDatabases",
+                "redshift-data:ListSchemas",
+                "redshift-data:ListTables"
+              ],
+              "Resource": "arn:aws:redshift:*:525419040953:cluster:*"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

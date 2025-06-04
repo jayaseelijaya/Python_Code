@@ -1,0 +1,149 @@
+{
+	"resourceType": "Bundle",
+	"type": "transaction",
+	"entry": [{
+			"fullUrl": "urn:uuid:ac3de6f1-e236-4200-b9da-f1b7758de992",
+			"resource": {
+				"resourceType": "Patient",
+				"name": [{
+					"given": ["T kUMAR."]
+				}]
+			},
+			"request": {
+				"method": "POST",
+				"url": "Patient"
+			}
+		},
+	    {
+             "fullUrl": "urn:uuid:0979f804-3260-11ec-8d3d-0242ac130003",
+             "resource": {
+              "resourceType": "AllergyIntolerance",
+               "clinicalStatus": "active",
+                 "verificationStatus": "confirmed",
+                   "type": "allergy",
+                     "category": [
+                     "food"
+                     ],
+             "criticality": "low",
+             "code": {
+             "coding": [
+             {
+              "system": "http://snomed.info/sct",
+              "code": "419474003",
+              "display": "Allergy to mould"
+             }
+             ],
+             "text": "Allergy to mould"
+             },
+             "patient": {
+              "reference": "urn:uuid:ac3de6f1-e236-4200-b9da-f1b7758de992"
+             },
+             "assertedDate": "2003-04-05T10:13:00-05:00"
+             },
+             "request": {
+             "method": "POST",
+             "url": "AllergyIntolerance"
+             }
+        },
+		{
+      "fullUrl": "urn:uuid:107f0436-3261-11ec-8d3d-0242ac130003",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "status": "stopped",
+        "intent": "order",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "313782",
+              "display": "Acetaminophen 325 MG Oral Tablet"
+            }
+          ],
+          "text": "Acetaminophen 325 MG Oral Tablet"
+        },
+        "subject": {
+          "reference": "urn:uuid:ac3de6f1-e236-4200-b9da-f1b7758de992"
+        }
+      },
+      "request": {
+        "method": "POST",
+        "url": "MedicationRequest"
+      }
+    },
+	{
+			"fullUrl": "urn:uuid:74fa8a22-3269-11ec-8d3d-0242ac130003",
+			"resource": {
+				"resourceType": "Observation",
+				"code": {
+					"coding": [{
+						"system": "http://hl7.org/fhir/observation-category",
+						"code": "vital-signs",
+						"display": "vital-signs"
+					}]
+				},
+				"subject": {
+					"reference": "urn:uuid:ac3de6f1-e236-4200-b9da-f1b7758de992"
+				},
+				"status": "final"
+			},
+			"request": {
+				"method": "POST",
+				"url": "Observation"
+			}
+		},
+		{
+      "fullUrl": "urn:uuid:74fa87ac-3269-11ec-8d3d-0242ac130003",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "status": "stopped",
+        "intent": "order",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "313782",
+              "display": "Acetaminophen 325 MG Oral Tablet"
+            }
+          ],
+          "text": "Acetaminophen 325 MG Oral Tablet"
+        },
+        "subject": {
+          "reference": "urn:uuid:ac3de6f1-e236-4200-b9da-f1b7758de992"
+  
+          }
+      },
+      "request": {
+        "method": "POST",
+        "url": "MedicationRequest"
+      }
+    },
+	{
+      "fullUrl": "urn:uuid:b87b5840-3272-11ec-8d3d-0242ac130003",
+      "resource": {
+        "resourceType": "Immunization",
+        "status": "completed",
+        "notGiven": false,
+        "vaccineCode": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/sid/cvx",
+              "code": "140",
+              "display": "Influenza, seasonal, injectable, preservative free"
+            }
+          ],
+          "text": "Influenza, seasonal, injectable, preservative free"
+        },
+        "patient": {
+          "reference": "urn:uuid:ac3de6f1-e236-4200-b9da-f1b7758de992"
+        },
+        "date": "2010-03-01T06:22:41-05:00",
+        "primarySource": true
+      },
+      "request": {
+        "method": "POST",
+        "url": "Immunization"
+      }
+     }
+	
+   ] 
+}

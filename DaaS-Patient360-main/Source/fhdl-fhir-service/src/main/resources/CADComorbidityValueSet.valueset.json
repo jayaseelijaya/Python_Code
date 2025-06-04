@@ -1,0 +1,199 @@
+{
+	"url": {
+		"@value": "https://www.fhir.philips.com/4.0/ValueSet/cardiology/coronaryArteryDiseaseSummary/cadComorbidity-v1/CADComorbidityValueSet"
+	},
+	"version": {
+		"@value": "PACKAGE_VERSION"
+	},
+	"name": {
+		"@value": "CADComorbidityValueSet"
+	},
+	"title": {
+		"@value": "CADComorbidityValueSet"
+	},
+	"status": {
+		"@value": "draft"
+	},
+	"experimental": {
+		"@value": "false"
+	},
+	"publisher": {
+		"@value": "Royal Philips"
+	},
+	"contact": {
+		"name": {
+			"@value": "Amnon Shabo"
+		},
+		"telecom": {
+			"system": {
+				"@value": "email"
+			},
+			"value": {
+				"@value": "amnon.shabo@philips.com"
+			}
+		}
+	},
+	"description": {
+		"@value": "CAD comorbidities pre-defined list per the 2021 ACC/AHA/SCAI Guideline for Coronary Artery Revascularization"
+	},
+	"compose": {
+		"include": {
+			"system": {
+				"@value": "http://snomed.info/sct"
+			},
+			"concept": [{
+					"code": {
+						"@value": "15771004"
+					},
+					"display": {
+						"@value": "Diabetes insipidus"
+					}
+				},
+				{
+					"code": {
+						"@value": "73211009"
+					},
+					"display": {
+						"@value": "Diabetes mellitus"
+					}
+				},
+				{
+					"code": {
+						"@value": "371037005"
+					},
+					"display": {
+						"@value": "Systolic dysfunction"
+					}
+				},
+				{
+					"code": {
+						"@value": "64779008"
+					},
+					"display": {
+						"@value": "Blood coagulation disorder"
+					}
+				},
+				{
+					"code": {
+						"@value": "368009"
+					},
+					"display": {
+						"@value": "Heart valve disorder"
+					}
+				},
+				{
+					"code": {
+						"@value": "248279007"
+					},
+					"display": {
+						"@value": "Frailty"
+					}
+				},
+				{
+					"code": {
+						"@value": "86049000"
+					},
+					"display": {
+						"@value": "Malignant neoplasm"
+					}
+				},
+				{
+					"code": {
+						"@value": "46177005"
+					},
+					"display": {
+						"@value": "End-stage renal disease"
+					}
+				},
+				{
+					"code": {
+						"@value": "13645005"
+					},
+					"display": {
+						"@value": "Chronic obstructive lung disease"
+					}
+				},
+				{
+					"code": {
+						"@value": "38013005"
+					},
+					"display": {
+						"@value": "Immunosuppression"
+					}
+				},
+				{
+					"code": {
+						"@value": "235856003"
+					},
+					"display": {
+						"@value": "Liver disease"
+					}
+				},
+				{
+					"code": {
+						"@value": "19943007"
+					},
+					"display": {
+						"@value": "Cirrhosis of liver"
+					}
+				},
+				{
+					"code": {
+						"@value": "275526006"
+					},
+					"display": {
+						"@value": "History of cerebrovascular accident"
+					}
+				},
+				{
+					"code": {
+						"@value": "67362008"
+					},
+					"display": {
+						"@value": "Aortic aneurysm"
+					}
+				},
+				{
+					"code": {
+						"@value": "38341003"
+					},
+					"display": {
+						"@value": "Hypertensive disorder"
+					}
+				},
+				{
+					"code": {
+						"@value": "57676002"
+					},
+					"display": {
+						"@value": "Joint pain"
+					}
+				},
+				{
+					"code": {
+						"@value": "370992007"
+					},
+					"display": {
+						"@value": "Dyslipidemia"
+					}
+				},
+				{
+					"code": {
+						"@value": "42335002"
+					},
+					"display": {
+						"@value": "Fatty atrophy"
+					}
+				},
+				{
+					"code": {
+						"@value": "396275006"
+					},
+					"display": {
+						"@value": "Osteoarthritis"
+					}
+				}
+			]
+		}
+	}
+}

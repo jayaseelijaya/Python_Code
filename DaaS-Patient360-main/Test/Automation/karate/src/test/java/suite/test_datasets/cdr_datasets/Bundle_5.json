@@ -1,0 +1,39 @@
+{
+	"resourceType": "Bundle",
+	"type": "transaction",
+	"entry": [{
+			"fullUrl": "urn:uuid:74fa8ae0-3269-11ec-8d3d-0242ac130003",
+			"resource": {
+				"resourceType": "Patient",
+				"name": [{
+					"given": ["JOHN.VK"]
+				}]
+			},
+			"request": {
+				"method": "POST",
+				"url": "Patient"
+			}
+		},
+		{
+			"fullUrl": "urn:uuid:74fa8a22-3269-11ec-8d3d-0242ac130003",
+			"resource": {
+				"resourceType": "Observation",
+				"code": {
+					"coding": [{
+						"system": "http://hl7.org/fhir/observation-category",
+						"code": "vital-signs",
+						"display": "vital-signs"
+					}]
+				},
+				"subject": {
+					"reference": "urn:uuid:74fa8ae0-3269-11ec-8d3d-0242ac130003"
+				},
+				"status": "final"
+			},
+			"request": {
+				"method": "POST",
+				"url": "Observation"
+			}
+		}
+	]
+}

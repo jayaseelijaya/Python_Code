@@ -1,0 +1,28 @@
+{
+	"resourceType": "AllergyIntolerance",
+	"id": "78",
+	"clinicalStatus": "active",
+	"verificationStatus": "confirmed",
+	"type": "allergy",
+	"meta": {
+		"profile": [
+			"http://hl7.org/fhir/uv/ips/StructureDefinition/AllergyIntolerance-uv-ips"
+		]
+	},
+	"category": [
+		"food"
+	],
+	"criticality": "low",
+	"code": {
+		"coding": [{
+			"system": "http://snomed.info/sct",
+			"code": "419474003",
+			"display": "Allergy to mould"
+		}],
+		"text": "Allergy to mould"
+	},
+	"patient": {
+		"reference": "urn:uuid:37fb6124-3268-11ec-8d3d-0242ac130003"
+	},
+	"assertedDate": "2021-01-05T10:13:00-05:00"
+}

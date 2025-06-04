@@ -1,0 +1,220 @@
+pipeline {
+    parameters {
+        string(name: 'PSNAME', defaultValue: '', description: 'Platform Service Name')
+        string(name: 'BRANCH', defaultValue: '', description: ' Branch Name')
+        string(name: 'DEV_TYPE', defaultValue: '', description: 'Java, NodejsUI, Nodejs, Python')
+        string(name: 'TEST_TYPE', defaultValue: '', description: 'KARATE, SOAPUI, NODEJS')
+        string(name: 'BUILD_TYPE', defaultValue: '', description: 'Build Type: GATED, DAY, NIGHTLY, RELEASE, UPDATE')
+        string(name: 'BUILD_NUM', defaultValue: '', description: 'Build Number from TFS Build')
+        string(name: 'BUILD_NAME', defaultValue: '', description: 'Build Name from TFS Build')
+        string(name: 'COMMIT_ID', defaultValue: '', description: 'COMMIT_ID from TFS Build in case of GATED')      
+        booleanParam(defaultValue: true, description: '', name: 'BUILD')
+        booleanParam(defaultValue: true, description: '', name: 'DEPLOY')
+        booleanParam(defaultValue: true, description: '', name: 'SMOKETEST')
+        booleanParam(defaultValue: true, description: '', name: 'FULLTEST')
+        booleanParam(defaultValue: true, description: '', name: 'PERFORMTEST')
+        booleanParam(defaultValue: true, description: '', name: 'SECURITYTEST')
+        booleanParam(defaultValue: true, description: '', name: 'CFAPPDELETE')
+        booleanParam(defaultValue: false, description: '', name: 'FAILED')
+        booleanParam(defaultValue: false, description: '', name: 'INPROGRESS')
+        booleanParam(defaultValue: false, description: '', name: 'ACTIVE')
+    }
+    environment {
+        GIT_URL                 = "${TFS_GIT_URL}/${PSNAME}"
+        TFS_ROBO_REPO           = "${TFS_GIT_URL}/${GIT_ROBOCI}"
+        BITBUCKET_REPO          = "${BITBUCKET_URL}/${PSNAME}"
+        RoboCI_BRANCH           = "master"
+        TEST_HOST_NAME          = "i2mtest11"
+        VAULT_HOST              = "https://vproxy.us-east.philips-healthsuite.com/"
+        VAULT_SERVICE_INSTANCE  = "fhdl-vault"
+        DOCKER_REPO_URL         = "docker.na1.hsdp.io"
+        DOCKER_REPO_PATH        = "client-cao-aicoe_aicoe-fhdl-dev"
+        DOCKER_IMAGE_VERSION    = "1.0"
+        CI                      = "true"
+        EMAIL_GROUP             = "${TA_MAIL}"
+        CF_ORG                  = "client-cao-aicoe"
+        CF_SPACE                = "aicoe-fhdl-dev"
+        REGION_NAME             = "us-east-1"
+        API_ENDPOINT            = "https://api.cloud.pcftest.com"
+        CF_API_HOST             = "api.cloud.pcftest.com"
+        CF_LOGIN_HOST           = "login.cloud.pcftest.com"
+        JARVERSION              = "1.0.0.1-SNAPSHOT"
+        DOMAIN                  = "cloud.pcftest.com"
+        REDSHIFT_STORAGE_TYPE   = "redshift-dense-storage-dev"
+        REDSHIFT_ZONE_NAME      = "fhdl-redshift"
+        CREATE_OR_REUSE         = "create"
+        GATEWAY_PROXY           = 'http://umbrella.philips.com:80/'
+        GATEWAY_PROXY_SECURE    = 'http://umbrella.philips.com:443/'
+    }
+    options {
+        disableConcurrentBuilds()
+        // timestamps()
+    }
+    agent { label 'fhdlperm' }
+    stages {
+
+        stage('BUILD') {
+            when {          
+                expression { params.BUILD == true }
+            }
+            steps {
+            InitialiseBuild()
+            wrap([$class: 'MaskPasswordsBuildWrapper']) {
+                    withCredentials([string(credentialsId: 'HSDP_SONARQUBE_TOKEN', variable: 'HSDP_SONARQUBE_TOKEN')]) {
+                        script {
+                            try {
+                            sh ''' 
+                                cd /home/jenkins
+                                rm -rf /usr/share/maven/conf/settings.xml
+                                cp -f settings.xml /usr/share/maven/conf
+                                
+                             '''
+                                sh " chmod -R 755 ${WORKSPACE} "
+                                sh " ${WORKSPACE}/CICD/build.sh "                       
+                            }finally {
+                                // warnings canResolveRelativePaths: false, categoriesPattern: '', consoleParsers: [[parserName: 'Java Compiler (javac)']], defaultEncoding: '', excludePattern: 'Cobertura\\sreport\\snot\\sfound.*,You\\sare\\snot\\susing\\sthe\\slatest\\sJaCoCo\\sbinary.*,Coverage.*,Duplicated Lines.*,Major Issues.*,Minor Issues.*,Blocker Issues.*,Critical Issues.*', failedNewAll: '0', failedTotalAll: '1000', healthy: '', includePattern: '', messagesPattern: 'Cobertura\\sreport\\snot\\sfound.*,You\\sare\\snot\\susing\\sthe\\slatest\\sJaCoCo\\sbinary.*,Coverage.*,Duplicated Lines.*,Major Issues.*,Minor Issues.*,Blocker Issues.*,Critical Issues.*', unHealthy: '', useDeltaValues: true
+                                if (env.BUILD_TYPE ==~ /(RELEASE|UPDATE)/) {
+                                    build job: 'MALWARE_SCAN', wait: true, parameters: [[$class: 'StringParameterValue', name: 'BUILD_NUM', value: "${BUILD_NUM}"],[$class: 'StringParameterValue', name: 'BUILD_NAME', value: "${BUILD_NAME}"],[$class: 'StringParameterValue', name: 'PSNAME', value: "${PSNAME}"]]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        stage ('DEPLOY') {
+            when {
+                expression { BUILD_TYPE ==~ /(GATED|DAY|NIGHTLY|RELEASE|UPDATE)/ && params.DEPLOY == true }
+            }
+            steps {
+                InitialiseBuild()                
+                // wrap([$class: 'MaskPasswordsBuildWrapper']) {
+                //  withCredentials([usernamePassword(credentialsId: 'ENG_CI_CREDENTIALS', passwordVariable: 'ENG_CI_PWD', usernameVariable: 'ENG_CI_USER')]) {
+                //      build job: "${PSNAME}_DEPLOY", wait: true, parameters: [[$class: 'StringParameterValue', name: 'PSNAME', value: "${PSNAME}"], [$class: 'StringParameterValue', name: 'BRANCH', value: "${BRANCH}"],[$class: 'StringParameterValue', name: 'CF_USN', value: "${CF_USN}"],[$class: 'hudson.model.PasswordParameterValue', name: 'CF_PWD', value: "${CF_PWD}"],[$class: 'StringParameterValue', name: 'CF_ORG', value: "${HSDP_CI_ORG}"],[$class: 'StringParameterValue', name: 'CF_SPACE', value: "${PSNAME}"],[$class: 'StringParameterValue', name: 'CF_API_HOST', value: "${PCF_TEST}"],[$class: 'StringParameterValue', name: 'CF_LOGIN_HOST', value: "${CF_LOGIN}"],[$class: 'StringParameterValue', name: 'VAULT_HOST', value: "${env.VAULT_HOST}"],[$class: 'StringParameterValue', name: 'VAULT_SERVICE_INSTANCE', value: "${env.VAULT_SERVICE_INSTANCE}"],[$class: 'StringParameterValue', name: 'VAULT_SERVICE_KEY', value: "${env.VAULT_SERVICE_KEY}"],[$class: 'StringParameterValue', name: 'VAULT_PATH', value: "${env.VAULT_PATH}"],[$class: 'StringParameterValue', name: 'DOCKER_PKIREPO_URL', value: "${env.DOCKER_PKIREPO_URL}"],[$class: 'StringParameterValue', name: 'EMAIL', value: "${env.EMAIL_GROUP}"],[$class: 'StringParameterValue', name: 'CI', value: "${env.CI}"],[$class: 'StringParameterValue', name: 'BUILD_NAME', value: "${BUILD_NAME}"],[$class: 'StringParameterValue', name: 'BUILD_NUM', value: "${BUILD_NUM}"],[$class: 'StringParameterValue', name: 'HTTP_PROXY', value: "${env.HTTP_PROXY}"],[$class: 'StringParameterValue', name: 'HTTPS_PROXY', value: "${env.HTTPS_PROXY}"]]
+                // sh " chmod -R 755 ${WORKSPACE} "
+                   sh " ${WORKSPACE}/CICD/deploy.sh "
+                //  }
+                // }
+            }
+        }
+        stage('SMOKETEST') {
+            when {
+                expression { BUILD_TYPE ==~ /(DAY|GATED|NIGHTLY)/ && params.SMOKETEST == true }
+            }
+            steps {
+            InitialiseBuild()
+                //withCredentials([usernamePassword(credentialsId: 'ENG_CI_CREDENTIALS', passwordVariable: 'ENG_CI_PWD', usernameVariable: 'ENG_CI_USER')]) {
+                    sh " echo SMOKETEST, Integration of SMOKE test is Program team decision "
+                    script{
+                        try {
+                            sh " chmod -R 755 ${WORKSPACE} "
+                            sh " ${WORKSPACE}/CICD/Test_Execution.sh SMOKETEST "
+                        } finally {
+                                sh " echo SMOKETEST Done "
+                        }
+                    }
+                //}
+            }
+        }
+        stage('FULLTEST') {
+            when {
+                expression { BUILD_TYPE ==~ /(NIGHTLY|RELEASE|UPDATE)/ && params.FULLTEST == true }
+            }
+            steps {
+            InitialiseBuild()
+                //checkout([$class: 'GitSCM', branches: [[name: "*/${env.RoboCI_BRANCH}"]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'CleanBeforeCheckout'], [$class: 'SubmoduleOption', disableSubmodules: false, parentCredentials: true, recursiveSubmodules: false, reference: '', trackingSubmodules: false], [$class: 'CloneOption', depth: 0, noTags: true, reference: '', shallow: false, timeout: 360], [$class: 'RelativeTargetDirectory', relativeTargetDir: 'ROBOCI']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'TFS_CRED', url: "${env.TFS_ROBO_REPO}"]]])
+                //withCredentials([usernamePassword(credentialsId: 'ENG_CI_CREDENTIALS', passwordVariable: 'ENG_CI_PWD', usernameVariable: 'ENG_CI_USER'), usernamePassword(credentialsId: 'ENG_CI_CREDENTIALS', passwordVariable: 'ENG_CI_PWD', usernameVariable: 'ENG_CI_USER')]) {
+                    script {
+                        try {
+                            sh " chmod -R 755 ${WORKSPACE}"
+                            sh " ${WORKSPACE}/CICD/Test_Execution.sh FULLTEST "
+                        } finally {
+                            //publishHTML (target: [allowMissing: true, alwaysLinkToLastBuild: true, keepAll: true, reportDir: 'RESULT', reportFiles: "REG_${JOB_NAME}_FULLTEST.html", reportName: "REG${JOB_NAME}_FULLTEST"])
+                            //archiveArtifacts allowEmptyArchive: true, artifacts: 'RESULT/*.json'
+                            sh " echo FULLTEST Done "
+                        }
+                    }
+                //}
+            }
+        }
+        stage('PERFORMANCETEST') {
+            when {
+                expression { BUILD_TYPE ==~ /(NIGHTLY|RELEASE|UPDATE)/ && params.PERFORMTEST == true }
+            }
+            steps {
+            InitialiseBuild()
+            //checkout([$class: 'GitSCM', branches: [[name: "*/${env.RoboCI_BRANCH}"]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'CleanBeforeCheckout'], [$class: 'SubmoduleOption', disableSubmodules: false, parentCredentials: true, recursiveSubmodules: false, reference: '', trackingSubmodules: false], [$class: 'CloneOption', depth: 0, noTags: true, reference: '', shallow: false, timeout: 360], [$class: 'RelativeTargetDirectory', relativeTargetDir: 'ROBOCI']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'TFS_CRED', url: "${env.TFS_ROBO_REPO}"]]])
+                //withCredentials([usernamePassword(credentialsId: 'ENG_CI_CREDENTIALS', passwordVariable: 'ENG_CI_PWD', usernameVariable: 'ENG_CI_USER'), usernamePassword(credentialsId: 'ENG_CI_CREDENTIALS', passwordVariable: 'ENG_CI_PWD', usernameVariable: 'ENG_CI_USER')]) {
+                    script {
+                        try {
+                            sh " chmod -R 755 ${WORKSPACE}"
+                            //sh " ${WORKSPACE}/ROBOCI/CICD/Scripts/Ec2_Trigger.sh PERFORMANCETEST "
+                        } finally {
+                            //publishHTML (target: [allowMissing: true, alwaysLinkToLastBuild: true, keepAll: true, reportDir: 'RESULT', reportFiles: "REG_${JOB_NAME}_PERFORMANCETEST.html", reportName: "REG${JOB_NAME}_PERFORMANCETEST"])
+                            //archiveArtifacts allowEmptyArchive: true, artifacts: 'RESULT/*.json'
+                            // sh " echo PERFORMANCETEST Done "
+                        }
+                    }
+                //}
+            }
+        }
+        stage('SECURITYTEST') {
+            when {
+                expression { BUILD_TYPE ==~ /(NIGHTLY|RELEASE|UPDATE)/ && params.SECURITYTEST == true }
+            }
+            steps {
+            InitialiseBuild()
+            //checkout([$class: 'GitSCM', branches: [[name: "*/${env.RoboCI_BRANCH}"]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'CleanBeforeCheckout'], [$class: 'SubmoduleOption', disableSubmodules: false, parentCredentials: true, recursiveSubmodules: false, reference: '', trackingSubmodules: false], [$class: 'CloneOption', depth: 0, noTags: true, reference: '', shallow: false, timeout: 360], [$class: 'RelativeTargetDirectory', relativeTargetDir: 'ROBOCI']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'TFS_CRED', url: "${env.TFS_ROBO_REPO}"]]])
+                //withCredentials([usernamePassword(credentialsId: 'ENG_CI_CREDENTIALS', passwordVariable: 'ENG_CI_PWD', usernameVariable: 'ENG_CI_USER'), usernamePassword(credentialsId: 'ENG_CI_CREDENTIALS', passwordVariable: 'ENG_CI_PWD', usernameVariable: 'ENG_CI_USER')]) {
+                    script {
+                        try {
+                            sh " chmod -R 755 ${WORKSPACE}"
+                            //sh " ${WORKSPACE}/ROBOCI/CICD/Scripts/Ec2_Trigger.sh SECURITYTEST "
+                        } finally {
+                            //publishHTML (target: [allowMissing: true, alwaysLinkToLastBuild: true, keepAll: true, reportDir: 'RESULT', reportFiles: "REG_${JOB_NAME}_SECURITYTEST.html", reportName: "REG${JOB_NAME}_SECURITYTEST"])
+                            //archiveArtifacts allowEmptyArchive: true, artifacts: 'RESULT/*.json'
+                            sh " echo SECURITYTEST Done "
+                        }
+                    }
+                //}
+            }
+        }
+        stage('CFAPPDELETE') {
+            when {
+                expression { BUILD_TYPE ==~ /(NIGHTLY)/ && params.CFAPPDELETE == true }
+            }
+            steps {
+            InitialiseBuild()
+            //checkout([$class: 'GitSCM', branches: [[name: "*/${env.RoboCI_BRANCH}"]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'CleanBeforeCheckout'], [$class: 'SubmoduleOption', disableSubmodules: false, parentCredentials: true, recursiveSubmodules: false, reference: '', trackingSubmodules: false], [$class: 'CloneOption', depth: 0, noTags: true, reference: '', shallow: false, timeout: 360], [$class: 'RelativeTargetDirectory', relativeTargetDir: 'ROBOCI']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'TFS_CRED', url: "${env.TFS_ROBO_REPO}"]]])
+                //withCredentials([usernamePassword(credentialsId: 'ENG_CI_CREDENTIALS', passwordVariable: 'ENG_CI_PWD', usernameVariable: 'ENG_CI_USER')]) {
+                    script {
+                            sh "chmod -R 755 ${WORKSPACE}"
+                            echo "Starting CF app deletion stage"
+                            sh " ${WORKSPACE}/CICD/cfappdelete.sh "
+                            echo "Finished CF app deletion stage"
+                    }
+                //}
+            }
+        }
+    }
+    post {
+        failure{
+            emailext (mimeType: 'text/html', body: '<p></p><br><br/>$PROJECT_DEFAULT_CONTENT', subject: "'${env.BUILD_NUM}' Failed", to: "${env.EMAIL_GROUP}")
+        }
+        success{
+            script {
+            emailext (mimeType: 'text/html', body: '<p><b>BUILD BINARY PATH : <a href="${FN_CONFIG_SHAREDPATH}\\${BUILD_NAME}\\${BUILD_NUM}">Open Build Drop Location</a></b></p><br><br/>$PROJECT_DEFAULT_CONTENT', subject: "'${env.BUILD_NUM}' Succeeded", to: "${env.EMAIL_GROUP}")
+                if (env.BUILD_TYPE ==~ /(RELEASE|UPDATE)/) {
+                    build job: 'GLOBAL_BUILDNUM', wait: true, parameters: [[$class: 'StringParameterValue', name: 'BUILD_NUM', value: "${BUILD_NAME}/${BUILD_NUM}"]]
+                }
+            }
+        }
+    }
+}
+def InitialiseBuild() {
+    committerName = sh(script: "git show -s --format='%an' HEAD", returnStdout: true)
+    currentBuild.displayName = "${params.BUILD_NUM}"
+    currentBuild.description = "Submitter: " + committerName + ";Node: ${env.NODE_NAME}"
+    echo currentBuild.description
+    echo currentBuild.displayName
+}

@@ -1,0 +1,50 @@
+name: Fortify and BlackDuck run
+on:
+  push:
+    branches:  
+     - main
+  schedule:
+      - cron: '0 21 * * *'
+  
+jobs:
+  build:
+    runs-on: [self-hosted, linux, x64, philips]
+    container:
+      image: docker.na1.hsdp.io/hs-daas/hsdaas:latest
+      credentials:
+        username: ${{ secrets.DOCREG_USERNAME }}
+        password: ${{ secrets.DOCREG_PASSWORD }}
+
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Build
+        run: |
+           chmod 755 CICD/cibuild.sh
+           /bin/bash CICD/cibuild.sh
+
+      - name: Fortify Scan
+        uses: philips-internal/fortify-scan-action@21.2.3.2
+        env:
+          FORTIFY_TOKEN: ${{ secrets.FORTIFY_TOKEN }}
+          FORTIFY_HOST_URL: https://fortify.philips.com/ssc
+          FORTIFY_PROJECT_NAME: "FedLearn"
+          FORTIFY_VERSION_NAME: "FederatedHealthLake"
+        with:
+          language: Java
+          projectBaseDir: "/Source/**"
+          exclude: "./**/test/*.java"
+  
+  blackduck-scan:
+    name: BlackDuck Scan
+    uses: philips-internal/workflows/.github/workflows/template_blackduck_java.yml@main
+    with:
+      scan_mode: INTELLIGENT
+      project_name: "FedLearn"
+      project_version_name: "FederatedHealthLake"
+      source_path: ./Source/
+      custom_args_to_blackduck: '{"detect.cleanup":"false"}'
+      build_tool_docker_image_tag: "maven:3.8.6-openjdk-18"
+      build_args: "mvn clean install"
+    secrets:
+      BLACKDUCK_TOKEN: ${{ secrets.BLACKDUCK_TOKEN }}

@@ -1,0 +1,146 @@
+{
+  "selected_dominance": "Right",
+  "lesion_profile": [
+    {
+      "lesion": {
+        "number": 1,
+        "segments_list": [
+          {
+            "segment": {
+              "number": "16",
+              "name": "Posterolateral from RCA",
+              "description": ""
+            }
+          },
+          {
+            "segment": {
+              "number": "16a",
+              "name": "Posterolateral from RCA",
+              "description": ""
+            }
+          },
+          {
+            "segment": {
+              "number": "16b",
+              "name": "Posterolateral from RCA",
+              "description": ""
+            }
+          },
+          {
+            "segment": {
+              "number": "16c",
+              "name": "Posterolateral from RCA",
+              "description": ""
+            }
+          }
+        ],
+        "totalocclusion": true,
+        "first_totalocclusion_segment_number": "16",
+        "is_totalocclusion_age_gt_3months": "Unknown",
+        "blunt_stump": false,
+        "bridging": false,
+        "first_segment_number_beyond_totalocclusion_visualized": "16",
+        "sidebranch_at_the_origin_of_occlusion": "Yes_AllSideBranches_Lt_1_point_5_mm",
+        "severe_tortuosity": true,
+        "heavy_calcification": true,
+        "thrombus": true,
+        "comments": ""
+      }
+    },
+    {
+      "lesion": {
+        "number": 2,
+        "segments_list": [
+          {
+            "segment": {
+              "number": "1",
+              "name": "RCA Proximal",
+              "description": ""
+            }
+          },
+          {
+            "segment": {
+              "number": "4",
+              "name": "Posterior descending",
+              "description": ""
+            }
+          },
+          {
+            "segment": {
+              "number": "16c",
+              "name": "Posterolateral from RCA",
+              "description": ""
+            }
+          }
+        ],
+        "totalocclusion": true,
+        "first_totalocclusion_segment_number": "16c",
+        "is_totalocclusion_age_gt_3months": "No",
+        "blunt_stump": true,
+        "bridging": false,
+        "first_segment_number_beyond_totalocclusion_visualized": "16",
+        "sidebranch_at_the_origin_of_occlusion": "Yes_AllSideBranches_Lt_1_point_5_mm_And_GtOrEqual_1_point_5_mm_Are_Involved",
+        "trifurcation": false,
+        "bifurcation": true,
+        "bifurcation_medina": "Medina_1_1_1",
+        "bifurcation_angulation_lt_70": true,
+        "aorto_ostial_lesion": true,
+        "severe_tortuosity": true,
+        "heavy_calcification": true,
+        "thrombus": true,
+        "comments": ""
+      }
+    },
+        {
+      "lesion": {
+        "number": 3,
+        "segments_list": [
+          {
+            "segment": {
+              "number": "1",
+              "name": "RCA Proximal",
+              "description": ""
+            }
+          },
+          {
+            "segment": {
+              "number": "4",
+              "name": "Posterior descending",
+              "description": ""
+            }
+          },
+          {
+            "segment": {
+              "number": "16c",
+              "name": "Posterolateral from RCA",
+              "description": ""
+            }
+          }
+        ],
+        "totalocclusion": true,
+        "first_totalocclusion_segment_number": "16c",
+        "is_totalocclusion_age_gt_3months": "Yes",
+        "blunt_stump": true,
+        "bridging": true,
+        "sidebranch_at_the_origin_of_occlusion": "Yes_AllSideBranches_Lt_1_point_5_mm_And_GtOrEqual_1_point_5_mm_Are_Involved",
+        "trifurcation": true,
+        "trifurcation_diseased_segments_involved": 3,
+        "aorto_ostial_lesion": true,
+        "severe_tortuosity": true,
+        "heavy_calcification": true,
+        "thrombus": false,
+        "comments": ""
+      }
+    }
+  ],
+  "diffusely_diseased_narrowed_segment": {
+    "present": true,
+     "diffusely_diseased_narrowed_segment_list": [
+      "16",
+      "16a",
+      "16b",
+      "16c"
+    ]
+  },
+  "score": 54.5
+}

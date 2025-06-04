@@ -1,0 +1,985 @@
+{
+    "resourceType": "Bundle",
+    "type": "transaction",
+    "entry": [
+        {
+            "fullUrl": "urn:uuid:37fb6124-3268-11ec-8d3d-0242ac130003",
+            "resource": {
+                "resourceType": "Patient",
+                "name": [
+                    {
+                        "given": [
+                            "lara"
+                        ]
+                    }
+                ]
+            },
+            "request": {
+                "method": "POST",
+                "url": "Patient"
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:cde4ab95-ef55-45b6-8e4f-1c4e7f6f790b",
+            "resource": {
+                "resourceType": "AllergyIntolerance",
+                "clinicalStatus": "active",
+                "verificationStatus": "confirmed",
+                "type": "allergy",
+                "category": [
+                    "food"
+                ],
+                "criticality": "low",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "code": "419474003",
+                            "display": "Allergy to mould"
+                        }
+                    ],
+                    "text": "Allergy to mould"
+                },
+                "patient": {
+                    "reference": "urn:uuid:37fb6124-3268-11ec-8d3d-0242ac130003"
+                },
+                "assertedDate": "2021-01-05T10:13:00-05:00"
+            },
+            "request": {
+                "method": "POST",
+                "url": "AllergyIntolerance"
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:8e54adb8-889f-11ec-a8a3-0242ac120002",
+            "resource": {
+                "resourceType": "AllergyIntolerance",
+                "id": "8e54adb8-889f-11ec-a8a3-0242ac120002",
+                "clinicalStatus": "active",
+                "verificationStatus": "confirmed",
+                "type": "allergy",
+                "category": [
+                    "medication"
+                ],
+                "criticality": "high",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+                            "code": "7980",
+                            "display": "Penicillin G"
+                        }
+                    ]
+                },
+                "patient": {
+                    "reference": "urn:uuid:37fb6124-3268-11ec-8d3d-0242ac130003"
+                },
+                "assertedDate": "2021-01-10T10:16:00-05:00",
+                "reaction": [
+                    {
+                        "manifestation": [
+                            {
+                                "coding": [
+                                    {
+                                        "system": "http://snomed.info/sct",
+                                        "code": "247472004",
+                                        "display": "Hives"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            "request": {
+                "method": "POST",
+                "url": "AllergyIntolerance"
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:d9f985ce-88b1-11ec-a8a3-0242ac120002",
+            "resource": {
+                "resourceType": "AllergyIntolerance",
+                "id": "d9f985ce-88b1-11ec-a8a3-0242ac120002",
+                "clinicalStatus": "active",
+                "verificationStatus": "confirmed",
+                "type": "allergy",
+                "category": [
+                    "food"
+                ],
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "code": "227037002",
+                            "display": "Fish - dietary (substance)"
+                        }
+                    ],
+                    "text": "Allergic to fresh fish. Tolerates canned fish"
+                },
+                "patient": {
+                    "reference": "urn:uuid:37fb6124-3268-11ec-8d3d-0242ac130003"
+                },
+                "assertedDate": "2021-01-12T10:18:00-07:00"
+            },
+            "request": {
+                "method": "POST",
+                "url": "AllergyIntolerance"
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:c638edb4-31ad-11ec-8d3d-0242ac130003",
+            "resource": {
+                "resourceType": "Observation",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "code": "365980008",
+                            "display": "History of Tobacco use"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "urn:uuid:37fb6124-3268-11ec-8d3d-0242ac130003"
+                },
+                "status": "final"
+            },
+            "request": {
+                "method": "POST",
+                "url": "Observation"
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:d11429c4-88a6-11ec-a8a3-0242ac120002",
+            "resource": {
+                "resourceType": "Observation",
+                "id": "d11429c4-88a6-11ec-a8a3-0242ac120002",
+                "identifier": [
+                    {
+                        "use": "official",
+                        "system": "http://www.bmc.nl/zorgportal/identifiers/observations",
+                        "value": "6323"
+                    }
+                ],
+                "status": "final",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://loinc.org",
+                            "code": "15074-8",
+                            "display": "Glucose [Moles/volume] in Blood"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "urn:uuid:37fb6124-3268-11ec-8d3d-0242ac130003"
+                },
+                "valueQuantity": {
+                    "value": 6.3,
+                    "unit": "mmol/l",
+                    "system": "http://unitsofmeasure.org",
+                    "code": "mmol/L"
+                },
+                "referenceRange": [
+                    {
+                        "low": {
+                            "value": 3.1,
+                            "unit": "mmol/l",
+                            "system": "http://unitsofmeasure.org",
+                            "code": "mmol/L"
+                        },
+                        "high": {
+                            "value": 6.2,
+                            "unit": "mmol/l",
+                            "system": "http://unitsofmeasure.org",
+                            "code": "mmol/L"
+                        }
+                    }
+                ]
+            },
+            "request": {
+                "method": "POST",
+                "url": "Observation"
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:74fa87ac-3269-11ec-8d3d-0242ac130003",
+            "resource": {
+                "resourceType": "MedicationRequest",
+                "status": "active",
+                "intent": "order",
+                "medicationCodeableConcept": {
+                    "coding": [
+                        {
+                            "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+                            "code": "313782",
+                            "display": "Acetaminophen 325 MG Oral Tablet"
+                        }
+                    ],
+                    "text": "Acetaminophen 325 MG Oral Tablet"
+                },
+                "subject": {
+                    "reference": "urn:uuid:37fb6124-3268-11ec-8d3d-0242ac130003"
+                }
+            },
+            "request": {
+                "method": "POST",
+                "url": "MedicationRequest"
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:0979f5de-3260-11ec-8d3d-0242ac130003",
+            "resource": {
+                "resourceType": "Immunization",
+                "status": "completed",
+                "notGiven": false,
+                "vaccineCode": {
+                    "coding": [
+                        {
+                            "system": "http://hl7.org/fhir/sid/cvx",
+                            "code": "140",
+                            "display": "Influenza, seasonal, injectable, preservative free"
+                        }
+                    ],
+                    "text": "Influenza, seasonal, injectable, preservative free"
+                },
+                "patient": {
+                    "reference": "urn:uuid:37fb6124-3268-11ec-8d3d-0242ac130003"
+                },
+                "date": "2021-10-26T11:37:12-04:00",
+                "primarySource": true
+            },
+            "request": {
+                "method": "POST",
+                "url": "Immunization"
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:0873c128-88ab-11ec-a8a3-0242ac120002",
+            "resource": {
+                "resourceType": "Immunization",
+                "id": "0873c128-88ab-11ec-a8a3-0242ac120002",
+                "status": "completed",
+                "notGiven": false,
+                "vaccineCode": {
+                    "coding": [
+                        {
+                            "system": "http://terminology.hl7.org/CodeSystem/v3-RouteOfAdministration",
+                            "code": "IM",
+                            "display": "Injection, intramuscular"
+                        }
+                    ],
+                    "text": "Hepatitis B"
+                },
+                "patient": {
+                    "reference": "urn:uuid:37fb6124-3268-11ec-8d3d-0242ac130003"
+                },
+                "date": "2021-10-26T11:37:12-04:00",
+                "primarySource": true
+            },
+            "request": {
+                "method": "POST",
+                "url": "Immunization"
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:a79a969f-c197-3d79-9c0f-cfe4a395512f",
+            "resource": {
+                "resourceType": "Organization",
+                "identifier": [
+                    {
+                        "system": "https://github.com/synthetichealth/synthea",
+                        "value": "a79a969f-c197-3d79-9c0f-cfe4a395512f"
+                    }
+                ],
+                "type": [
+                    {
+                        "coding": [
+                            {
+                                "system": "http://hl7.org/fhir/organization-type",
+                                "code": "prov",
+                                "display": "Healthcare Provider"
+                            }
+                        ],
+                        "text": "Healthcare Provider"
+                    }
+                ],
+                "name": "MILFORD REGIONAL PHYSICIAN GROUP INC",
+                "telecom": [
+                    {
+                        "system": "phone",
+                        "value": "508-422-2305"
+                    }
+                ],
+                "address": [
+                    {
+                        "line": [
+                            "14 PROSPECT ST"
+                        ],
+                        "city": "MILFORD",
+                        "state": "MA",
+                        "postalCode": "01757-3003",
+                        "country": "US"
+                    }
+                ]
+            },
+            "request": {
+                "method": "POST",
+                "url": "Organization"
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:3bd5eda0-16da-3ba5-8500-4dfd6ae118b8",
+            "resource": {
+                "resourceType": "Organization",
+                "id": "3bd5eda0-16da-3ba5-8500-4dfd6ae118b8",
+                "identifier": [
+                    {
+                        "system": "https://github.com/synthetichealth/synthea",
+                        "value": "3bd5eda0-16da-3ba5-8500-4dfd6ae118b8"
+                    }
+                ],
+                "active": true,
+                "type": [
+                    {
+                        "coding": [
+                            {
+                                "system": "http://terminology.hl7.org/CodeSystem/organization-type",
+                                "code": "prov",
+                                "display": "Healthcare Provider"
+                            }
+                        ],
+                        "text": "Healthcare Provider"
+                    }
+                ],
+                "name": "NORWOOD HOSPITAL",
+                "telecom": [
+                    {
+                        "system": "phone",
+                        "value": "5087721000"
+                    }
+                ],
+                "address": [
+                    {
+                        "line": [
+                            "800 WASHINGTON STREET"
+                        ],
+                        "city": "NORWOOD",
+                        "state": "MA",
+                        "postalCode": "02062",
+                        "country": "US"
+                    }
+                ]
+            },
+            "request": {
+                "method": "POST",
+                "url": "Organization"
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:b1ddf812-1fdd-3adf-b1d5-32cc8bd07ebb",
+            "resource": {
+                "resourceType": "Organization",
+                "id": "b1ddf812-1fdd-3adf-b1d5-32cc8bd07ebb",
+                "identifier": [
+                    {
+                        "system": "https://github.com/synthetichealth/synthea",
+                        "value": "b1ddf812-1fdd-3adf-b1d5-32cc8bd07ebb"
+                    }
+                ],
+                "active": true,
+                "type": [
+                    {
+                        "coding": [
+                            {
+                                "system": "http://terminology.hl7.org/CodeSystem/organization-type",
+                                "code": "prov",
+                                "display": "Healthcare Provider"
+                            }
+                        ],
+                        "text": "Healthcare Provider"
+                    }
+                ],
+                "name": "BETH ISRAEL DEACONESS HOSPITAL - PLYMOUTH",
+                "telecom": [
+                    {
+                        "system": "phone",
+                        "value": "5087462000"
+                    }
+                ],
+                "address": [
+                    {
+                        "line": [
+                            "275 SANDWICH STREET"
+                        ],
+                        "city": "PLYMOUTH",
+                        "state": "MA",
+                        "postalCode": "02360",
+                        "country": "US"
+                    }
+                ]
+            },
+            "request": {
+                "method": "POST",
+                "url": "Organization"
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:0000016d-3a85-4cca-0000-000000013d80",
+            "resource": {
+                "resourceType": "Practitioner",
+                "identifier": [
+                    {
+                        "system": "http://hl7.org/fhir/sid/us-npi",
+                        "value": "81280"
+                    }
+                ],
+                "active": true,
+                "name": [
+                    {
+                        "family": "Swift555",
+                        "given": [
+                            "Kristy290"
+                        ],
+                        "prefix": [
+                            "Dr."
+                        ]
+                    }
+                ],
+                "address": [
+                    {
+                        "line": [
+                            "14 PROSPECT ST"
+                        ],
+                        "city": "MILFORD",
+                        "state": "MA",
+                        "postalCode": "01757-3003",
+                        "country": "US"
+                    }
+                ],
+                "gender": "female"
+            },
+            "request": {
+                "method": "POST",
+                "url": "Practitioner"
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:16e22b0d-7ac2-3442-885b-e1f7c61a6fae",
+            "resource": {
+                "resourceType": "Practitioner",
+                "id": "16e22b0d-7ac2-3442-885b-e1f7c61a6fae",
+                "identifier": [
+                    {
+                        "system": "http://hl7.org/fhir/sid/us-npi",
+                        "value": "9999995092"
+                    }
+                ],
+                "active": true,
+                "name": [
+                    {
+                        "family": "Bradtke547",
+                        "given": [
+                            "Loris321"
+                        ],
+                        "prefix": [
+                            "Dr."
+                        ]
+                    }
+                ],
+                "telecom": [
+                    {
+                        "extension": [
+                            {
+                                "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-direct",
+                                "valueBoolean": true
+                            }
+                        ],
+                        "system": "email",
+                        "value": "Loris321.Bradtke547@gmail.com",
+                        "use": "work"
+                    }
+                ],
+                "address": [
+                    {
+                        "line": [
+                            "800 WASHINGTON STREET"
+                        ],
+                        "city": "NORWOOD",
+                        "state": "MA",
+                        "postalCode": "02062",
+                        "country": "US"
+                    }
+                ],
+                "gender": "female"
+            },
+            "request": {
+                "method": "POST",
+                "url": "Practitioner"
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:a926973f-c6cf-3555-a84a-71dab38f88e0",
+            "resource": {
+                "resourceType": "Practitioner",
+                "id": "a926973f-c6cf-3555-a84a-71dab38f88e0",
+                "identifier": [
+                    {
+                        "system": "http://hl7.org/fhir/sid/us-npi",
+                        "value": "9999997791"
+                    }
+                ],
+                "active": true,
+                "name": [
+                    {
+                        "family": "Jacobson885",
+                        "given": [
+                            "Ingrid581"
+                        ],
+                        "prefix": [
+                            "Dr."
+                        ]
+                    }
+                ],
+                "telecom": [
+                    {
+                        "extension": [
+                            {
+                                "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-direct",
+                                "valueBoolean": true
+                            }
+                        ],
+                        "system": "email",
+                        "value": "Ingrid581.Jacobson885@gmail.com",
+                        "use": "work"
+                    }
+                ],
+                "address": [
+                    {
+                        "line": [
+                            "275 SANDWICH STREET"
+                        ],
+                        "city": "PLYMOUTH",
+                        "state": "MA",
+                        "postalCode": "02360",
+                        "country": "US"
+                    }
+                ],
+                "gender": "female"
+            },
+            "request": {
+                "method": "POST",
+                "url": "Practitioner"
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:5ea137a0-65e8-4757-aafb-b9c075babc41",
+            "resource": {
+                "resourceType": "Condition",
+                "clinicalStatus": "resolved",
+                "verificationStatus": "confirmed",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "code": "195662009",
+                            "display": "Acute viral pharyngitis (disorder)"
+                        }
+                    ],
+                    "text": "Acute viral pharyngitis (disorder)"
+                },
+                "subject": {
+                    "reference": "urn:uuid:37fb6124-3268-11ec-8d3d-0242ac130003"
+                },
+                "context": {
+                    "reference": "urn:uuid:9a1a0d67-5e15-46de-8e80-8430c985c6b7"
+                },
+                "onsetDateTime": "2021-10-26T11:37:39-04:00",
+                "abatementDateTime": "2021-10-26T11:37:39-04:00",
+                "assertedDate": "2021-10-26T11:37:39-04:00"
+            },
+            "request": {
+                "method": "POST",
+                "url": "Condition"
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:7c11c8ba-88b4-11ec-a8a3-0242ac120002",
+            "resource": {
+                "resourceType": "Condition",
+                "clinicalStatus": "resolved",
+                "verificationStatus": "confirmed",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "code": "87628006",
+                            "display": "Bacterial infectious disease"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "urn:uuid:37fb6124-3268-11ec-8d3d-0242ac130003"
+                },
+                "context": {
+                    "reference": "urn:uuid:9a1a0d67-5e15-46de-8e80-8430c985c6b7"
+                },
+                "onsetDateTime": "2021-10-26T11:37:39-04:00",
+                "abatementDateTime": "2021-10-26T11:37:39-04:00",
+                "assertedDate": "2021-10-26T11:37:39-04:00"
+            },
+            "request": {
+                "method": "POST",
+                "url": "Condition"
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:2bb06a58-88ae-11ec-a8a3-0242ac120002",
+            "resource": {
+                "resourceType": "Condition",
+                "id": "2bb06a58-88ae-11ec-a8a3-0242ac120002",
+                "clinicalStatus": "active",
+                "verificationStatus": "differential",
+                "category": [
+                    {
+                        "coding": [
+                            {
+                                "system": "http://snomed.info/sct",
+                                "code": "55607006",
+                                "display": "Problem"
+                            },
+                            {
+                                "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+                                "code": "problem-list-item"
+                            }
+                        ]
+                    }
+                ],
+                "severity": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "code": "24484000",
+                            "display": "Severe"
+                        }
+                    ]
+                },
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "code": "36225005",
+                            "display": "Acute renal insufficiency specified as due to procedure"
+                        }
+                    ]
+                },
+                "bodySite": [
+                    {
+                        "coding": [
+                            {
+                                "system": "http://snomed.info/sct",
+                                "code": "181414000",
+                                "display": "Kidney"
+                            }
+                        ]
+                    }
+                ],
+                "subject": {
+                    "reference": "urn:uuid:37fb6124-3268-11ec-8d3d-0242ac130003"
+                },
+                "context": {
+                    "reference": "urn:uuid:9a1a0d67-5e15-46de-8e80-8430c985c6b7"
+                },
+                "onsetDateTime": "2021-11-26T11:37:39-04:00",
+                "abatementDateTime": "2021-11-26T11:37:39-04:00",
+                "assertedDate": "2021-11-26T11:37:39-04:00"
+            },
+            "request": {
+                "method": "POST",
+                "url": "Condition"
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:6ab3a120-88b3-11ec-a8a3-0242ac120002",
+            "resource": {
+                "resourceType": "Condition",
+                "id": "6ab3a120-88b3-11ec-a8a3-0242ac120002",
+                "clinicalStatus": "active",
+                "verificationStatus": "confirmed",
+                "category": [
+                    {
+                        "coding": [
+                            {
+                                "system": "http://snomed.info/sct",
+                                "code": "439401001",
+                                "display": "diagnosis"
+                            }
+                        ]
+                    }
+                ],
+                "severity": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "code": "24484000",
+                            "display": "Severe"
+                        }
+                    ]
+                },
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "code": "254637007",
+                            "display": "NSCLC - Non-small cell lung cancer"
+                        }
+                    ]
+                },
+                "bodySite": [
+                    {
+                        "coding": [
+                            {
+                                "system": "http://snomed.info/sct",
+                                "code": "51185008",
+                                "display": "Thorax"
+                            }
+                        ]
+                    }
+                ],
+                "subject": {
+                    "reference": "urn:uuid:37fb6124-3268-11ec-8d3d-0242ac130003"
+                },
+                "context": {
+                    "reference": "urn:uuid:9a1a0d67-5e15-46de-8e80-8430c985c6b7"
+                },
+                "onsetDateTime": "2021-11-26T11:37:39-04:00",
+                "abatementDateTime": "2021-11-26T11:37:39-04:00",
+                "assertedDate": "2021-11-26T11:37:39-04:00"
+            },
+            "request": {
+                "method": "POST",
+                "url": "Condition"
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:73172940-88b8-11ec-a8a3-0242ac120002",
+            "resource": {
+                "resourceType": "Medication",
+                "id": "73172940-88b8-11ec-a8a3-0242ac120002",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "code": "108774000",
+                            "display": "Product containing anastrozole (medicinal product)"
+                        },
+                        {
+                            "system": "urn:oid:2.16.840.1.113883.2.4.4.1",
+                            "code": "99872",
+                            "display": "ANASTROZOL 1MG TABLET"
+                        },
+                        {
+                            "system": "urn:oid:2.16.840.1.113883.2.4.4.7",
+                            "code": "2076667",
+                            "display": "ANASTROZOL CF TABLET FILMOMHULD 1MG"
+                        },
+                        {
+                            "system": "http://www.whocc.no/atc",
+                            "code": "L02BG03",
+                            "display": "anastrozole"
+                        }
+                    ]
+                }
+            },
+            "request": {
+                "method": "POST",
+                "url": "Medication"
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:47524493-846a-4a26-bae2-4ab03e60f02e",
+            "resource": {
+                "resourceType": "MedicationStatement",
+                "id": "47524493-846a-4a26-bae2-4ab03e60f02e",
+                "status": "completed",
+                "category": {
+                    "coding": [
+                        {
+                            "system": "urn:oid:2.16.840.1.113883.2.4.3.11.60.20.77.5.3",
+                            "code": "6"
+                        }
+                    ]
+                },
+                "medicationReference": {
+                    "reference": "urn:uuid:73172940-88b8-11ec-a8a3-0242ac120002"
+                },
+                "effectivePeriod": {
+                    "start": "2020-01-27T00:00:00+00:00",
+                    "end": "2020-01-27T00:00:00+00:00"
+                },
+                "dateAsserted": "2020-01-27T14:45:00+00:00",
+                "informationSource": {
+                    "reference": "urn:uuid:0000016d-3a85-4cca-0000-000000013d80"
+                },
+                "subject": {
+                    "reference": "urn:uuid:37fb6124-3268-11ec-8d3d-0242ac130003"
+                },
+                "taken": "unk",
+                "dosage": [
+                    {
+                        "route": {
+                            "coding": [
+                                {
+                                    "system": "urn:oid:2.16.840.1.113883.2.4.4.9",
+                                    "code": "9",
+                                    "display": "ORAAL"
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            "request": {
+                "method": "POST",
+                "url": "MedicationStatement"
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:ea1d73b4-88e0-11ec-a8a3-0242ac120002",
+            "resource": {
+                "resourceType": "MedicationStatement",
+                "id": "ea1d73b4-88e0-11ec-a8a3-0242ac120002",
+                "status": "completed",
+                "category": {
+                    "coding": [
+                        {
+                            "system": "urn:oid:2.16.840.1.113883.2.4.3.11.60.20.77.5.3",
+                            "code": "6"
+                        }
+                    ]
+                },
+                "medicationReference": {
+                    "reference": "urn:uuid:73172940-88b8-11ec-a8a3-0242ac120002"
+                },
+                "effectivePeriod": {
+                    "start": "2020-01-27T00:00:00+00:00",
+                    "end": "2020-01-27T00:00:00+00:00"
+                },
+                "dateAsserted": "2020-01-27T14:45:00+00:00",
+                "informationSource": {
+                    "reference": "urn:uuid:0000016d-3a85-4cca-0000-000000013d80"
+                },
+                "subject": {
+                    "reference": "urn:uuid:37fb6124-3268-11ec-8d3d-0242ac130003"
+                },
+                "taken": "unk",
+                "dosage": [
+                    {
+                        "route": {
+                            "coding": [
+                                {
+                                    "system": "urn:oid:2.16.840.1.113883.2.4.4.9",
+                                    "code": "9",
+                                    "display": "Allergies and adverse reactions Document"
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            "request": {
+                "method": "POST",
+                "url": "MedicationStatement"
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:6e1fb74a-742b-4c7b-8487-171dacb88766",
+            "resource": {
+                "resourceType": "Composition",
+                "id": "6e1fb74a-742b-4c7b-8487-171dacb88766",
+                "status": "final",
+                "type": {
+                    "coding": [
+                        {
+                            "system": "http://loinc.org",
+                            "code": "60591-5",
+                            "display": "Patient summary Document"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "urn:uuid:37fb6124-3268-11ec-8d3d-0242ac130003"
+                },
+                "date": "2020-12-11T14:30:00+01:00",
+                "author": [
+                    {
+                        "reference": "urn:uuid:0000016d-3a85-4cca-0000-000000013d80"
+                    }
+                ],
+                "title": "Patient Summary as of December 11, 2021 14:30",
+                "confidentiality": "N",
+                "custodian": {
+                    "reference": "urn:uuid:a79a969f-c197-3d79-9c0f-cfe4a395512f"
+                },
+                "relatesTo": [
+                    {
+                        "code": "appends",
+                        "targetIdentifier": {
+                            "system": "urn:oid:2.16.724.4.8.10.200.10",
+                            "value": "20e12ce3-857f-49c0-b888-cb670597f191"
+                        }
+                    }
+                ]
+            },
+            "request": {
+                "method": "POST",
+                "url": "Composition"
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:9a1a0d67-5e15-46de-8e80-8430c985c6b7",
+            "resource": {
+                "resourceType": "Encounter",
+                "status": "finished",
+                "class": {
+                    "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+                    "code": "AMB"
+                },
+                "type": [
+                    {
+                        "coding": [
+                            {
+                                "system": "http://snomed.info/sct",
+                                "code": "410620009",
+                                "display": "Well child visit (procedure)"
+                            }
+                        ],
+                        "text": "Well child visit (procedure)"
+                    }
+                ],
+                "subject": {
+                    "reference": "urn:uuid:37fb6124-3268-11ec-8d3d-0242ac130003"
+                },
+                "participant": [
+                    {
+                        "individual": {
+                            "reference": "urn:uuid:0000016d-3a85-4cca-0000-000000013d80"
+                        }
+                    }
+                ],
+                "period": {
+                    "start": "2021-10-26T11:37:39-04:00",
+                    "end": "2021-10-26T11:52:39-04:00"
+                },
+                "serviceProvider": {
+                    "reference": "urn:uuid:a79a969f-c197-3d79-9c0f-cfe4a395512f"
+                }
+            },
+            "request": {
+                "method": "POST",
+                "url": "Encounter"
+            }
+        }
+    ]
+}
