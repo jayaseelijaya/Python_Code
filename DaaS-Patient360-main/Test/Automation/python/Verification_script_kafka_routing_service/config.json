@@ -1,9 +1,0 @@
-#{
-#    "service_name"          : "dynamodb",
- #   "table_name"            : "proposition_metadata",
- #   "region"                : "ap-south-1",
-  #  "aws_access_key_key"    : "ASIAXUVLKKC47NSWFG23",
-#    "aws_secret_access_key" : "eu/ACbEVfKMknmQeGctGU5L09++DptH+47Zfi/6r",
-#    "aws_session_token"     : "FwoGZXIvYXdzED0aDGyr4Lj8fr0uCxEAUSK2AfOQbb7ltUROpv9Idamd3cpcrFCh3Lm+Kh5TkjAWtUp9iveuTGnCRRq00lI4mlWVslwCoRFlUwiKrT7p3Ta02h2xHjculGGNU/TNQjf7Qk62lFXXCsOzAvSxFsZ5FYpVRjME+/k2SC95M7M7HUgIX5xcEqtub4tKwCim8DBh9GSU+b/VZMYrN7f8nLwYRY/f8qsOBPc1ovQ82HAB5m4fWuthnSKZhy2N0fo5NF9AKh/K4XUu/9DLKLyFopsGMi1igOw8GIzcW92eN1OoXJSoK+NBmmhsi2VHmsuH3JDb8s+pYnc2FPGNox/u3Ic=",
-#    "bootstrap"             : "b-1.daasmskcluster.tbynnw.c4.kafka.ap-south-1.amazonaws.com:9092,b-3.daasmskcluster.tbynnw.c4.kafka.ap-south-1.amazonaws.com:9092,b-2.daasmskcluster.tbynnw.c4.kafka.ap-south-1.amazonaws.com:9092"
-#}
